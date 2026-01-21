@@ -13,8 +13,7 @@ El_mus_culito/
 │   └── Router.php          # (Opcional) Manejador de rutas
 │
 ├── public/                 # Única carpeta accesible desde la web (Seguridad)
-│   ├── css/                # Estilos (.css)
-│   ├── js/                 # Scripts (.js)
+│   ├── css/                # Estilos (.css)│ 
 │   ├── img/                # Imágenes y logos
 │   └── index.php           # Punto de entrada de la aplicación
 │
@@ -43,3 +42,6 @@ El_mus_culito/
 ├── .env                    # Variables sensibles (DB_USER, DB_PASS)
 └── .htaccess               # Configuración del servidor Apache
 ```
+
+## Comando para encender Apache
+sudo systemctl enable --now apache2 
