@@ -1,4 +1,5 @@
 # El MUS CULITO
+Este sistema es una solución integral para la gestión de gimnasios, diseñada bajo el patrón de arquitectura MVC (Modelo-Vista-Controlador). Su objetivo es automatizar desde el registro de atletas y empleados hasta el control estricto de accesos y finanzas.
 
 ## Estructura del Proyecto
 
