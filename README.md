@@ -2,8 +2,7 @@
 
 ## Estructura del Proyecto
 
-'''mermaid
-sequence_diagram
+```
 El_mus_culito/
 │
 ├── config/                 # Configuración del sistema
@@ -42,4 +41,4 @@ El_mus_culito/
 │
 ├── .env                    # Variables sensibles (DB_USER, DB_PASS)
 └── .htaccess               # Configuración del servidor Apache
-'''
+```
