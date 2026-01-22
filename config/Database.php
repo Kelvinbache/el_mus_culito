@@ -30,6 +30,4 @@ class DB_Postgrest{
     }
 }
 
-
-echo $_ENV['DB_USER']
 ?>

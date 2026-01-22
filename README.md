@@ -45,3 +45,9 @@ El_mus_culito/
 
 ## Comando para encender Apache
 sudo systemctl enable --now apache2 
+
+## Revizar errores
+sudo tail -f /var/log/apache2/error.log
+
+## Reiniciar el servidor
+ sudo systemctl restart apache2
