@@ -1,0 +1,82 @@
+html,
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("https://lh3.googleusercontent.com/aida-public/AB6AXuAXL1rlfSbLIlQTZQZBOrmETYF-Jlq1cG8lcbREDLAPdRsCvB6VMzLT0uHrb1CWu3D0DMNc8xmE-aOoGUnygg9zgKvirKSucT7eZLDhDiEU8q8j1OXx7k4DPszIxmXJd-tvmCioodxgTZH09UeWBEjTOR9y0Ng36CAp8V_8r7lELGITsG_nh89E2gI-tRUD1ijkFnsbztdg9QF1jCV4wLuhorJgF9HT1uYirNi9qxxD9idDAvMe718rWktNJgS5o_VdgAVqYplhZWU");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #35424a;
+  color: #ffffff;
+  padding: 15px 0;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.navbar ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: end;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  list-style: none;
+  margin: 10px 15px;
+  width: auto;
+}
+
+nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #4999ad;
+}
+
+footer {
+  background: #35424a;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+
+@media (min-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-right: 40px;
+  }
+
+  header {
+    padding: 5px 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .navbar {
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

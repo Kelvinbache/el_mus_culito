@@ -3,15 +3,19 @@
 namespace Core;
 
 abstract class Controller {
-    protected function render($view, $data = []) {
-        extract($data);
-
-        $viewPath = __DIR__ . "/../src/Views/layout/" . $view . ".php";
-
+    protected function render($view) {
+    
+        $baseUrl = dirname(__DIR__) . "/src/views/layout";
+        
+        $viewPath = $baseUrl . $view . ".php";
+      
         if (file_exists($viewPath)) {
-            include __DIR__ . "/../src/Views/layout/header.php";
+            
+        if(file_exists($baseUrl . "header.php")) include $baseUrl . "header.php";
+            
             include $viewPath;
-            include __DIR__ . "/../src/Views/layout/footer.php";
+
+        if(file_exists($baseUrl . "footer.php")) include $baseUrl . "footer.php";
 
             } else {
             die("Error: La vista '{$view}' no se encuentra en {$viewPath}");

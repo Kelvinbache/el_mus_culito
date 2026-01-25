@@ -5,12 +5,8 @@ namespace App\Controller;
 use Core\Controller;
 
 class LoginController extends Controller {
-    public function index() {
-        $data = [
-            'title' => 'Iniciar Sesión - El Mus-Culito'
-        ];  
-        
-        return $this->render('/user/login', $data);
+    public function index() {     
+        return $this->render('/user/login');
     }
 
     public function welcome() {

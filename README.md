@@ -51,3 +51,28 @@ sudo tail -f /var/log/apache2/error.log
 
 ## Reiniciar el servidor
  sudo systemctl restart apache2
+
+ ## Update COmposer.JSON
+ composer dump-autoload
+
+
+## Paleta de color
+Verde Neón / Lima (#DFFF00): Usado para botones de llamada a la acción (CTA), estados activos y acentos importantes. Aporta vitalidad.
+
+Negro Carbón (#121212): Color de fondo principal para el modo oscuro, proporcionando un aspecto premium y moderno.
+
+Gris Oscuro (#1E1E1E): Utilizado para tarjetas, contenedores y la barra lateral para crear jerarquía visual.
+
+Blanco Puro (#FFFFFF): Para textos principales y títulos, garantizando la máxima legibilidad.
+
+Gris Suave (#A0A0A0): Para textos secundarios, descripciones y placeholders en formularios.
+
+## IMG
+🖼️ Referencias de Imágenes
+Utilizo imágenes de alta calidad de bancos gratuitos como Unsplash, que encajan con la estética de gimnasio profesional. Aquí tienes las referencias visuales para las pantallas:
+
+Home Page (Hero Section): Hombre entrenando intensamente en gimnasio oscuro
+Login / Sign Up Background: Interior de gimnasio moderno con luces de neón
+About Us Section: Grupo de personas en clase de entrenamiento funcional
+Client Management (Avatares): Retrato de persona atlética
+¿Te gustaría que apliquemos estos colores de forma más intensa en alguna sección específica o prefieres que avancemos con el diseño del formulario para añadir clientes?

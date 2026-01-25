@@ -16,9 +16,9 @@ class Router {
      $url = str_replace('/el_mus_culito', '', $url);
      $url = ($url === '' || $url === '/') ? '/' : $url;
     
-     $method = $_SERVER["REQUEST_METHOD"] ?? null;
+     $method = $_SERVER["REQUEST_METHOD"] ?? "GET";
 
-     if (!isset($this->routers[$method])) {
+     if (isset($this->routers[$method])) {
        $controller = $this-> routers[$method][$url];
               
           if (is_object($controller)) {
