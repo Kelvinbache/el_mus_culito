@@ -11,12 +11,10 @@
     <form method="POST" action="/el_mus_culito/public/login" class="login-form">
     <label for="username">Username</label> 
     <input type="text" id="username" name="username" placeholder="username" required>
-    <br><br>
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="password" required>
-    <br><br>
     <button type="submit">Login</button>
-    <button><a href="/el_mus_culito/public/register">Sing Up</a></button>
+    <button><a href="http://localhost/el_mus_culito/views/layout/user/sing_up.php">Sing Up</a></button>
     </form>
  </section>
  <section class="footer-links-section">
