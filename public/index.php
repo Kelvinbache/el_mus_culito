@@ -5,7 +5,7 @@
 
 require_once __DIR__ . '/../views/layout/headers/header_of_board.php';
 require_once __DIR__ . '/../views/layout/nav/nav_board.php';
-require_once __DIR__ . '/../views/layout/dashboard/board.php';
+require_once __DIR__ . '/../views/layout/dashboard/board_employess.php';
 require_once __DIR__ . '/../views/layout/footers/footer_of_board.php';
 
 

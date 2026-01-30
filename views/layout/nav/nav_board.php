@@ -13,7 +13,7 @@
                 <nav class="main-nav">
                     <a href="#">Dashboard</a>
                     <a href="#" class="active">Clients</a>
-                    <a href="#">Financials</a>
+                    <a href="#">Employees</a>
                     <a href="#">Equipment</a>
                 </nav>
 
