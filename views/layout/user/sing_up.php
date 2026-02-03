@@ -1,6 +1,6 @@
 <main class="container">
     <header class="header">
-        <a href="/" class="logo">El Musculito</a>
+        <a href="/el_mus_culito/public/home" class="logo">El Musculito</a>
 
     </header>
     
@@ -26,14 +26,12 @@
         </section>
     </section>
 
-
-
     <section class="form-section">
         <section class="form-header"> 
             <h2 class="form-title">Crear una cuenta</h2>
             <p class="form-description">Completa el formulario para registrarte</p>
         </section>
-        <form action="/sing_up" method="POST" class="form">
+        <form action="/el_mus_culito/public/sing_up" method="POST" class="form">
             <section class="form-group">
                 <label for="username" class="form-label">Nombre de usuario</label>
                 <input type="text" id="username" name="username" class="form-input" placeholder="Nombre de usuario" required>
@@ -70,7 +68,7 @@
             <button type="submit" class="form-button">Registrarse</button>
         </form>
         <section class="footer-section">
-            <span class="form-subtitle">¿Ya tienes una cuenta? <a href="/login" class="form-link">Inicia sesión aquí</a></span>
+            <span class="form-subtitle">¿Ya tienes una cuenta? <a href="/el_mus_culito/public/login" class="form-link">Inicia sesión aquí</a></span>
             <section class="links-services">
               <span class="service-text">Al registrarte, aceptas nuestros 
                   <a href="/terms" class="service-link">Términos de servicio</a>

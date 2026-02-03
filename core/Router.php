@@ -17,23 +17,55 @@ class Router {
      $url = ($url === '' || $url === '/') ? '/' : $url;
     
      $method = $_SERVER["REQUEST_METHOD"] ?? "GET";
-
+     
      if (isset($this->routers[$method])) {
-       $controller = $this-> routers[$method][$url];
+       
+        if (isset($this->routers[$method][$url])) {
+            $controller = $this-> routers[$method][$url];
+           
+            if (is_object($controller)) {
               
-          if (is_object($controller)) {
-             return $controller -> index(); 
-          };
-      
-          if (is_callable($controller)) {
+            if ($url === '/home') {
+               return $controller -> index("/dashboard" . $url);
+              }    
+              
+            if ($url === '/login') {
+                return $controller -> index("/user" . $url); 
+            }
+
+            if ($url === '/sing_up') {
+                return $controller -> index("/user" . $url);  
+            }
+
+            if ($url === '/dashboard/board') {
+                return $controller -> index($url);
+              
+            }
+
+            if ($url === '/dashboard/employees'){
+                return $controller -> index($url);
+            }
+
+            if ($url === "/dashboard/equipment"){
+               return $controller -> index($url);
+            }
+          
+          }
+            if (is_callable($controller)) {
              return $controller();
           }; 
-     }
+          
+       } else {
+         http_response_code(404);
+         echo "404 Not Found - La ruta no existe: " . $url;
+         exit;
+       }  
      
-     http_response_code(404);
-     echo "404 Not Found - El Router no reconoce la ruta: " . $url;
-     exit;
-    
+      } else {
+       http_response_code(405);
+       echo "405 Method Not Allowed - El método no está permitido: " . $method;
+       exit;
+     }
     //  http_response_code(500);
     //  echo "500 Internal Server Error";
     //  exit;

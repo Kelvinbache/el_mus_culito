@@ -1,3 +1,16 @@
+  body {
+    background-image:
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDTjGF9ewfrLbJC1Fmpz6IrweqAGUw4bxoEZoslzMBxpiuPtqyIMkm-8szGcN4ns-JGLl9mIeR0lMqxe9TR0F4JGk54KIDrmUAmwAqM3o2-I9Nd5ntxmcgh5ny-lwX4nhwwsDZ7ZxmF72UpReZWtybXpdcTtZM2UtOKgrxZaJ9cig9DgZ6qRmlf__7L8e8qhTj6a2yTInzcFrITJ15rpeUwl2WioFwparbKwMJFn5h167bMPG2KZtULZhBjdRGP2ZtyRA0PlJ7fPo");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    box-sizing: border-box;
+    width: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+
 a {
   text-decoration: none;
   color: black;

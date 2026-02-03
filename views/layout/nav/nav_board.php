@@ -11,10 +11,9 @@
                 </div>
                 
                 <nav class="main-nav">
-                    <a href="#">Dashboard</a>
-                    <a href="#" class="active">Clients</a>
-                    <a href="#">Employees</a>
-                    <a href="#">Equipment</a>
+                    <a href="/el_mus_culito/public/dashboard/board">Clients</a>
+                    <a href="/el_mus_culito/public/dashboard/employees">Employees</a>
+                    <a href="/el_mus_culito/public/dashboard/equipment">Equipment</a>
                 </nav>
 
                 <div class="user-profile">

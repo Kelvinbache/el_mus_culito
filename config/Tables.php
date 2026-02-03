@@ -1,4 +1,6 @@
 <?php 
+
+namespace Config;
 require_once 'Database.php';
 
 
@@ -23,13 +25,13 @@ class Tables {
        $consult = (bool) $smt->fetchColumn();
        
        if ($consult) {
-         return "the tables already exist";
+         return $this->db;
 
        } else {
          return $this->create_tables();
        }
   
-    } catch (PDOException $err){
+    } catch (\PDOException $err){
        echo $err;
     } 
   }
@@ -66,6 +68,8 @@ class Tables {
          user_lastname varchar(255) not null,
          user_dni varchar(12) unique not null,
          user_email varchar(255) unique not null
+         user_phone varchar(20) unique not null,
+         user_password varchar(255) not null
        );
        
        create table IF NOT EXISTS \"user\" (
@@ -130,7 +134,7 @@ class Tables {
        $this->db->exec($sql);
        return "exict in create tables";
   
-    } catch (PDOException $err){
+    } catch (\PDOException $err){
        echo $err;
     } 
   }

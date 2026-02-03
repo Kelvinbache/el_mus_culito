@@ -14,7 +14,7 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="password" required>
     <button type="submit">Login</button>
-    <button><a href="http://localhost/el_mus_culito/views/layout/user/sing_up.php">Sing Up</a></button>
+    <button><a href="/el_mus_culito/public/sing_up">Sing Up</a></button>
     </form>
  </section>
  <section class="footer-links-section">

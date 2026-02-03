@@ -15,8 +15,8 @@
             </nav>
             
             <div class="header-actions">
-                <button class="btn-login">Login</button>
-                <button class="btn-primary">Join the Tribe</button>
+                <button class="btn-login"><a href="/el_mus_culito/public/login">Login</a></button>
+                <button class="btn-primary"><a href="/el_mus_culito/public/sing_up">Join the Tribe</a></button>
             </div>
         </div>
     </header>

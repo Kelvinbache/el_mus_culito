@@ -1,10 +1,13 @@
 <?php
 
+namespace Config;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
+
 
 class DB_Postgrest{
     public $conn;
@@ -19,10 +22,10 @@ class DB_Postgrest{
            $DB_PASSWORD=$_ENV['DB_PASSWORD'];
            
            $dns="pgsql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME";
-           $this->conn= new PDO($dns, $DB_USER, $DB_PASSWORD);
-           $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           $this->conn= new \PDO($dns, $DB_USER, $DB_PASSWORD);
+           $this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
-        } catch (PDOException $error){
+        } catch (\PDOException $error){
             echo $error;
         }
 
