@@ -1,6 +1,7 @@
 <?php
 $PATH = "./../";
 require_once __DIR__ . $PATH . "headers/header_of_board.php";
+require_once __DIR__ . $PATH . "headers/permissions_header.php";
 ?>
 
 <main class="main-content container-xl">
