@@ -1,6 +1,14 @@
 /* =========================================
-   1. CORE & RESET
+   1. VARIABLES Y RESET (Base de Élite)
    ========================================= */
+:root {
+    --primary: #80ec13;
+    --bg-dark: #0a0c07;
+    --white: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,295 +16,248 @@
 }
 
 body {
-    background: #0a0c07;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--white);
+    line-height: 1.5;
     overflow-x: hidden;
-    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 1.5rem;
 }
 
 /* =========================================
-   2. HERO SECTION (Layout Maestro)
+   2. TIPOGRAFÍA Y ESTILOS GLOBALES
    ========================================= */
-.content-wrapper {
-    position: relative;
-    padding-top: 60px;
+h1, h2, h3, h4, .logo-text, .btn-cta, .btn-primary, .btn-secondary, .btn-dark {
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
 }
+
+.text-primary { color: var(--primary); }
+.text-stroke {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+}
+
+/* =========================================
+   3. NAVEGACIÓN Y BOTONES DE ACCESO (Nav)
+   ========================================= */
+.main-header {
+    position: fixed;
+    top: 0; width: 100%; z-index: 100;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(10, 12, 7, 0.85);
+    backdrop-filter: blur(16px);
+}
+
+.header-container {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Botones pequeños del Nav */
+.header-actions .btn-primary, 
+.header-actions .btn-secondary {
+    padding: 8px 18px !important;
+    font-size: 0.75rem !important;
+    height: 40px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* =========================================
+   4. SISTEMA DE BOTONES (Comportamiento)
+   ========================================= */
+.btn-primary, .btn-cta {
+    background-color: var(--primary) !important;
+    color: var(--bg-dark) !important;
+    border: none;
+    box-shadow: 4px 4px 0px var(--white);
+    transition: 0.3s;
+}
+
+.btn-primary:hover, .btn-cta:hover {
+    transform: translate(2px, -2px);
+    box-shadow: 0px 0px 0px var(--white);
+}
+
+.btn-secondary {
+    background-color: transparent !important;
+    border: 2px solid var(--white) !important;
+    color: var(--white) !important;
+    transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: var(--white) !important;
+    color: var(--bg-dark) !important;
+}
+
+/* =========================================
+   5. HERO SECTION (Layout Maestro)
+   ========================================= */
+.content-wrapper { position: relative; padding-top: 80px; }
 
 .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    padding: 4rem 0;
 }
 
-/* Texto de fondo */
 .hero-bg-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Archivo Black', sans-serif;
-    font-size: 22vw;
+    font-size: 20vw;
     color: rgba(255, 255, 255, 0.02);
     z-index: 0;
     pointer-events: none;
-    user-select: none;
+    white-space: nowrap;
 }
 
-/* Grid del Hero - Corregida */
 .hero-grid {
-    position: relative;
-    z-index: 1;
+    position: relative; z-index: 1;
     display: grid;
-    grid-template-columns: 1fr; /* Móvil */
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 3rem;
     align-items: center;
     width: 100%;
 }
 
 @media (min-width: 1024px) {
-    .hero-grid {
-        grid-template-columns: 1fr 1fr; /* Eliminamos el espacio del div vacío con el CSS */
-    }
-    /* Si el div vacío sigue ahí en el HTML, esto lo ignora */
-    .hero-grid > div:first-child:empty { display: none; } 
+    .hero-grid { grid-template-columns: 1fr 1fr; text-align: left; }
 }
 
-/* =========================================
-   3. COMPONENTES DEL HERO
-   ========================================= */
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(128, 236, 19, 0.1);
-    padding: 8px 16px;
-    border-radius: 50px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(128, 236, 19, 0.2);
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    background: #80ec13;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #80ec13;
-}
-
-.badge-text {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
-
-.main-title {
-    font-family: 'Archivo Black', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    line-height: 0.9;
-    font-style: italic;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-.text-primary { color: #80ec13; }
-
-.hero-description {
-    color: rgba(255,255,255,0.6);
-    font-size: 1.1rem;
-    max-width: 480px;
-    margin-bottom: 35px;
-}
+.main-title { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.9; margin-bottom: 1.5rem; }
 
 .hero-btns {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn-cta {
-    background: #80ec13;
-    color: #000;
-    padding: 18px 35px;
-    font-family: 'Archivo Black', sans-serif;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    box-shadow: 4px 4px 0 #fff;
-    transition: 0.3s;
-}
-
-.btn-secondary {
-    background: transparent;
-    color: #fff;
-    border: 2px solid #fff;
-    padding: 18px 35px;
-    font-family: 'Archivo Black', sans-serif;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-/* =========================================
-   4. VISUAL CARD & STATS (La Imagen)
-   ========================================= */
-.hero-visual {
-    position: relative;
-    width: 100%;
-    display: flex;
+    display: flex; gap: 1rem; flex-wrap: wrap;
     justify-content: center;
 }
 
-.visual-card {
-    width: 100%;
-    max-width: 500px;
-    height: 550px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 30px;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-}
+@media (min-width: 1024px) { .hero-btns { justify-content: flex-start; } }
 
-.card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, #0a0c07 10%, transparent 60%);
-}
-
-.stat-badge {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    background: rgba(0,0,0,0.8);
-    padding: 15px 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); display: block; }
-.stat-value { font-size: 1.5rem; font-weight: 900; color: #80ec13; font-family: 'Archivo Black'; }
-
-/* Footer de la imagen (Glass) */
-.card-footer {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    padding: 20px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.progress-bar {
-    width: 100%;
-    height: 6px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.progress-fill {
-    width: 75%;
-    height: 100%;
-    background: #80ec13;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #80ec13;
+/* Botones Grandes Hero */
+.btn-cta, .hero .btn-secondary {
+    padding: 18px 35px;
+    font-size: 1rem;
 }
 
 /* =========================================
-   5. SECCIÓN STATS
+   6. IMAGEN Y VISUAL CARD
    ========================================= */
-.stats { padding: 80px 0; }
+.hero-visual { width: 100%; display: flex; justify-content: center; }
+
+.visual-card {
+    width: 100%; max-width: 500px; height: 550px;
+    background-size: cover; background-position: center;
+    border-radius: 2rem; position: relative; overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-dark), transparent); }
+
+.stat-badge {
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(0,0,0,0.8); padding: 15px; border-radius: 1rem;
+    backdrop-filter: blur(10px); border: 1px solid var(--border-color);
+}
+
+.stat-value { display: block; color: var(--primary); font-size: 1.4rem; font-weight: 900; }
+
+/* =========================================
+   7. SECCIONES: STATS Y FEATURES
+   ========================================= */
+.stats { padding: 4rem 0; }
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
     text-align: center;
 }
 
-@media (min-width: 768px) {
-    .stats-grid { grid-template-columns: repeat(4, 1fr); }
-}
+@media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
 
-.stat-number {
-    font-family: 'Archivo Black';
-    font-size: 3rem;
-    color: #80ec13;
-    line-height: 1;
-}
-
-.stat-category {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.4);
-}
-
-/* =========================================
-   6. SECCIÓN FEATURES
-   ========================================= */
-.features { padding: 100px 0; }
-.section-header { text-align: center; margin-bottom: 60px; }
-.section-title { font-family: 'Archivo Black'; font-size: 3rem; text-transform: uppercase; }
-.text-stroke { -webkit-text-stroke: 1px #fff; color: transparent; }
+.stat-number { font-size: 3rem; color: var(--primary); line-height: 1; }
+.stat-category { font-size: 0.75rem; text-transform: uppercase; opacity: 0.5; }
 
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; margin-top: 3rem;
 }
 
 .feature-card {
-    background: rgba(255,255,255,0.02);
-    padding: 40px;
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.02); padding: 3rem;
+    border: 1px solid var(--border-color); text-align: center;
     transition: 0.3s;
 }
 
-.feature-card:hover {
-    border-color: #80ec13;
-    background: rgba(128, 236, 19, 0.02);
-}
-
-.feature-icon span { font-size: 3rem; color: #80ec13; margin-bottom: 20px; }
+.feature-card:hover { border-color: var(--primary); }
 
 /* =========================================
-   7. FINAL CTA
+   8. PIE DE PÁGINA (Footer Profesional)
    ========================================= */
-.cta-box {
-    background: #80ec13;
-    padding: 80px 40px;
-    border-radius: 40px;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    color: #000;
+.main-footer {
+    background-color: #050505;
+    padding: 80px 0 40px;
+    margin-top: 100px;
+    border-top: 1px solid var(--border-color);
 }
 
-.cta-title { font-family: 'Archivo Black'; font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 20px; }
-.cta-text { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; font-weight: 500; }
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 50px;
+    text-align: left;
+}
 
+@media (max-width: 768px) {
+    .footer-grid { text-align: center; }
+}
+
+.footer-logo .logo-text { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+
+.footer-links h4 { color: var(--primary); margin-bottom: 1.5rem; font-size: 0.9rem; }
+.footer-links ul { list-style: none; }
+.footer-links ul li { margin-bottom: 10px; }
+.footer-links ul li a { 
+    color: var(--text-muted); text-decoration: none; 
+    font-size: 0.85rem; transition: 0.3s; 
+}
+.footer-links ul li a:hover { color: var(--primary); }
+
+.footer-bottom {
+    margin-top: 60px; padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.7rem; color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom { flex-direction: column; gap: 15px; }
+}
+
+/* Caja Verde CTA Final */
+.cta-box {
+    background: var(--primary); color: var(--bg-dark);
+    padding: 6rem 2rem; border-radius: 3rem; text-align: center;
+}
 .btn-dark {
-    background: #000;
-    color: #80ec13;
-    padding: 20px 40px;
-    font-family: 'Archivo Black';
-    border: none;
-    cursor: pointer;
+    background: var(--bg-dark); color: var(--primary);
+    padding: 1.2rem 2.5rem; border: none; cursor: pointer;
 }
