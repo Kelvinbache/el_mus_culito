@@ -1,20 +1,26 @@
 {
-    frankenphp {
-    }
+    # Bloque Global: Solo para el motor. 
+    # NO pongas 'root' ni 'php_server' aquí.
+    frankenphp
 }
 
+# Bloque de Sitio: Aquí es donde va tu aplicación.
 :{$PORT:8080} {
+    # 1. Definimos la raíz (Aquí SÍ es legal)
     root * public/
 
+    # 2. Configuramos el servidor PHP
     php_server {
         env DATABASE_URL {env.DATABASE_URL}
     }
 
+    # 3. Reescritura de rutas para tu Router (Pretty URLs)
     @not_file {
         not file {path}
         not path *.php
     }
     rewrite @not_file /index.php?{query}
 
+    # 4. Servidor de archivos estáticos
     file_server
 }
