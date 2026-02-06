@@ -7,6 +7,7 @@
   --white: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.6);
   --border-color: rgba(255, 255, 255, 0.1);
+  --glass: rgba(10, 12, 7, 0.85);
 }
 
 * {
@@ -39,6 +40,12 @@ body {
   font-style: italic;
 }
 
+.text-primary { color: var(--primary); }
+.text-stroke {
+  -webkit-text-stroke: 1px var(--white);
+  color: transparent;
+}
+
 /* =========================================
    3. HEADER & NAV (GLASSMORPHISM)
    ========================================= */
@@ -46,12 +53,12 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 50;
+  z-index: 100;
   border-bottom: 1px solid var(--border-color);
 }
 
 .glass-nav {
-  background: rgba(10, 12, 7, 0.85);
+  background: var(--glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -102,70 +109,74 @@ body {
 .main-nav a:hover { color: var(--primary); }
 
 /* =========================================
-   4. SISTEMA DE BOTONES (ALINEACIÓN ATÓMICA)
+   4. SISTEMA DE BOTONES
    ========================================= */
-/* Esta regla aplica a TODOS los botones del sitio */
 .btn-primary, .btn-secondary, .btn-cta, .btn-dark, .btn-outline-dark {
-  display: inline-flex !important;
-  align-items: center !important;      /* Centrado Vertical */
-  justify-content: center !important;   /* Centrado Horizontal */
-  text-align: center !important;
-  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   cursor: pointer;
   border: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
-  line-height: 1 !important;           /* Clave para fuentes altas */
-  vertical-align: middle;
 }
 
-/* BOTONES DEL NAV (Ajuste de altura fija para evitar fallos) */
-.header-actions .btn-primary, 
-.header-actions .btn-secondary {
-  height: 42px !important;
-  padding: 0 1.5rem !important;
-  font-size: 0.8rem !important;
-  min-width: 120px;
-  margin: 0;
+.btn-cta, .btn-dark, .btn-outline-dark {
+  height: 65px;
+  padding: 0 3rem;
+  font-size: 1.1rem;
 }
 
 .btn-primary {
-  background-color: var(--primary) !important;
-  color: var(--bg-dark) !important;
-  box-shadow: 3px 3px 0px var(--white);
+  background-color: var(--primary);
+  color: var(--bg-dark);
+  box-shadow: 4px 4px 0px var(--white);
 }
 
-.btn-primary:hover {
-  transform: translate(2px, -2px);
-  box-shadow: 0px 0px 0px var(--white);
-}
+.btn-primary:hover { transform: translate(2px, -2px); box-shadow: 0px 0px 0px var(--white); }
 
 .btn-secondary {
-  background-color: transparent !important;
-  border: 2px solid var(--white) !important;
-  color: var(--white) !important;
-}
-
-.btn-secondary:hover {
-  background-color: var(--white) !important;
-  color: var(--bg-dark) !important;
-}
-
-/* BOTONES GRANDES (HERO / CTA) */
-.btn-cta, .btn-dark, .btn-outline-dark {
-  height: 65px !important;
-  padding: 0 3rem !important;
-  font-size: 1.25rem !important;
+  background-color: transparent;
+  border: 2px solid var(--white);
+  color: var(--white);
+  gap: 0.5rem;
 }
 
 /* =========================================
-   5. HERO SECTION
+   5. HERO SECTION & GRID
    ========================================= */
 .content-wrapper { padding-top: 80px; }
 
 .hero {
   position: relative;
   padding: 6rem 0;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18vw;
+  font-family: "Archivo Black", sans-serif;
+  color: rgba(255, 255, 255, 0.02);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: 1.2fr 0.8fr; }
 }
 
 .main-title {
@@ -174,70 +185,133 @@ body {
   margin-bottom: 2rem;
 }
 
-.hero-btns {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 3rem;
-  flex-direction: column;
+.hero-description {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 500px;
 }
 
-@media (min-width: 640px) {
-  .hero-btns { flex-direction: row; }
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
 }
 
 /* =========================================
-   6. FEATURES & CTA BOX
+   6. VISUAL CARD (IMÁGENES)
    ========================================= */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-  margin-top: 4rem;
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
-.feature-card {
-  background: rgba(255, 255, 255, 0.02);
-  padding: 3rem;
+.visual-glow {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(128, 236, 19, 0.15) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.visual-card {
+  width: 100%;
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2rem;
+  position: relative;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,12,7,0.9), transparent);
+}
+
+.stat-badge {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: var(--glass);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-color);
 }
 
-.cta-box {
-  background: var(--primary);
-  padding: 6rem 2rem;
-  text-align: center;
-  margin: 4rem 0;
-}
-
-.btn-dark {
-  background-color: var(--bg-dark) !important;
-  color: var(--primary) !important;
-}
-
-.btn-outline-dark {
-  background-color: transparent !important;
-  border: 2px solid var(--bg-dark) !important;
-  color: var(--bg-dark) !important;
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem;
 }
 
 /* =========================================
-   7. FOOTER
+   7. STATS & FEATURES
    ========================================= */
-.main-footer {
-  padding: 4rem 0 2rem;
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 4rem 0;
   border-top: 1px solid var(--border-color);
 }
 
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem;
-  opacity: 0.3;
-  font-size: 0.7rem;
+@media (min-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* Ajuste Iconos Material */
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  vertical-align: middle;
+.stat-number {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 2.5rem;
+  color: var(--primary);
 }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.feature-card {
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  transition: 0.3s;
+}
+
+.feature-card:hover { border-color: var(--primary); background: rgba(128, 236, 19, 0.03); }
+
+.feature-icon span {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   8. FINAL CTA BOX
+   ========================================= */
+.cta-box {
+  background: var(--primary);
+  border-radius: 2rem;
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 6rem;
+}
+
+.cta-title {
+  color: var(--bg-dark);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.btn-dark { background: var(--bg-dark); color: var(--primary); }
+.btn-outline-dark { border: 2px solid var(--bg-dark); color: var(--bg-dark); }
