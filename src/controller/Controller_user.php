@@ -18,9 +18,14 @@ class LoginController extends Controller {
         $data["user"] = $all_list->all_list_user();
 
         switch($url) {
+            
+          case($url === "/"):
+          $PATH = "/dashboard/home";
+          break;
+
           case($url === "/login" || $url ==="/sing_up"):
-            $PATH = "/user";
-            break;
+          $PATH = "/user";
+          break;
           
           case($url === "/client"):
              $PATH = "/client";
@@ -28,8 +33,8 @@ class LoginController extends Controller {
           case($url === "/employee"):
              $PATH = "/employee";
              break;       
-
-          case($url === "/home" || $url === "/board" || $url === "/user" || $url === "/employees" || $url === "/equipment" || $url === "/permissions"):
+       
+          case($url === "/board" || $url === "/user" || $url === "/employees" || $url === "/equipment" || $url === "/permissions"):
             $PATH = "/dashboard";
             break;  
         } 
@@ -72,15 +77,15 @@ class LoginController extends Controller {
             
             switch($type_user["type_user"]) {
                     case "user": 
-                        header("Location: /el_mus_culito/client");     
+                        header("Location: /client");     
                         break;
 
                     case "employee":
-                        header("Location: /el_mus_culito/employee");
+                        header("Location: /employee");
                         break;
                     
                     case "admin": 
-                        header("Location: /el_mus_culito/board"); 
+                        header("Location: /board"); 
                         break;
 
                     default:

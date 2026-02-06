@@ -8,7 +8,7 @@ $router = new Core\Router();
 $login = new App\Controller\LoginController();
 
 // Router is Principal
-$router->router("GET", '/home',  $login);
+$router->router("GET", '/',  $login);
 
 $router->router("GET", '/login', $login);
 $router->router("POST",'/login', [$login, 'authenticate']);
