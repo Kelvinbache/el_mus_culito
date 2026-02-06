@@ -1,0 +1,9 @@
+{
+    frankenphp
+}
+
+:{$PORT:8080}
+
+root * public/
+file_server
+php_server
