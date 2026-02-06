@@ -6,8 +6,11 @@
 
 route {
     root * public/
+    
+    try_files {path} /index.php?{query}
+    
     file_server
-
+    
     php_server {
         env DATABASE_URL {env.DATABASE_URL}
     }
