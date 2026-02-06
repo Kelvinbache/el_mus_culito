@@ -1,25 +1,26 @@
 {
-    # Configuración global
+    # Configuración global del motor
     frankenphp
-    order php_server before file_server
 }
 
-:{$PORT:8080}
+# Configuración del sitio
+:{$PORT:8080} {
+    # 1. Definimos la raíz del proyecto (fuera de frankenphp)
+    root * public/
 
-# Definimos la raíz fuera de cualquier bloque
-root * public/
+    # 2. Habilitamos el servidor PHP e inyectamos la base de datos
+    php_server {
+        env DATABASE_URL {env.DATABASE_URL}
+    }
 
-# Procesamos PHP primero
-php_server {
-    env DATABASE_URL {env.DATABASE_URL}
+    # 3. Reescribimos rutas para que tu Router funcione (Pretty URLs)
+    # Si el archivo solicitado no existe, lo mandamos al index.php
+    @not_file {
+        not file {path}
+        not path *.php
+    }
+    rewrite @not_file /index.php?{query}
+
+    # 4. Habilitamos el servidor de archivos para CSS, JS e imágenes
+    file_server
 }
-
-# Si no es un archivo PHP ni un archivo real, enviamos al index.php
-@not_file {
-    not file {path}
-    not path *.php
-}
-rewrite @not_file /index.php?{query}
-
-# Servimos archivos estáticos (CSS, JS)
-file_server
