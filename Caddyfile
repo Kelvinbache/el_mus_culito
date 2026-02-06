@@ -1,26 +1,26 @@
 {
-    # Configuración global del motor
+    # Configuración global: Solo el nombre del motor
     frankenphp
 }
 
-# Configuración del sitio
+# Bloque del sitio: Aquí es donde vive la lógica de tu app
 :{$PORT:8080} {
-    # 1. Definimos la raíz del proyecto (fuera de frankenphp)
+    # 1. Definimos la raíz (root NO puede ir dentro de frankenphp)
     root * public/
 
-    # 2. Habilitamos el servidor PHP e inyectamos la base de datos
+    # 2. Ejecutamos el servidor PHP
+    # Nota: Aquí NO ponemos llaves si solo queremos los valores por defecto
     php_server {
         env DATABASE_URL {env.DATABASE_URL}
     }
 
-    # 3. Reescribimos rutas para que tu Router funcione (Pretty URLs)
-    # Si el archivo solicitado no existe, lo mandamos al index.php
+    # 3. Reescribimos para que el Router funcione
     @not_file {
         not file {path}
         not path *.php
     }
     rewrite @not_file /index.php?{query}
 
-    # 4. Habilitamos el servidor de archivos para CSS, JS e imágenes
+    # 4. Servidor de archivos estáticos
     file_server
 }
