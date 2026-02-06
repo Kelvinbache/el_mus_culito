@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <header class="main-header">
             <div class="header-content container-xl">
                 <div class="brand">
@@ -10,20 +9,12 @@
                         <span>Gym Management</span>
                     </div>
                 </div>
-                
-                <nav class="main-nav">
-                    <a href="/el_mus_culito/board">Dashboard</a>
-                    <a href="/el_mus_culito/employees">Employees</a>
-                    <a href="/el_mus_culito/equipment">Equipment</a>
-                    <a href="/el_mus_culito/permissions">Permissions</a>
-
-                </nav>
                 <div class="user-profile">
-                  <div class="user-info">
+                    <div class="user-info">
                         <p class="user-role"style="text-transform: capitalize"><?php echo htmlspecialchars(strtoupper($username)); ?></p>
                         <p class="user-org" style="text-transform: capitalize"><?php echo htmlspecialchars(strtoupper($role)); ?> </p>
                     </div>
                     <div class="avatar-small" style="background-image: url('https://ui-avatars.com/api/?name=<?php echo htmlspecialchars(strtoupper($username ?? 'Invitado')); ?>&background=13ec5b&color=0d1b12');"></div>
                 </div>
-            </div>
+        </div>
 </header>

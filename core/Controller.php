@@ -3,48 +3,54 @@
 namespace Core;
 
 abstract class Controller {
-    protected function render($view) {  
+    protected function render($view, $data = []) {  
+        extract($data);
+            
         $baseUrl = dirname(__DIR__) . "/views/layout";
         $Path="/../views/layout/";
         
         $viewPath =  $baseUrl . $view . ".php";
-      
-        if (file_exists($viewPath) && $view === '/dashboard/home') {
 
-            require_once __DIR__ . $Path . "headers/header.php";    
+        if (!file_exists($viewPath)){
+            die("Error: La vista '{$view}' no se encuentra en {$viewPath}");
+        }
 
-            require_once __DIR__ . $Path . "nav/nav.php";
-
-            include_once $viewPath;
-
-            require_once __DIR__ . $Path . "footers/footer_of_home.php";
-
-        } else if (file_exists($viewPath) && $view === '/user/login') {
-
-            require_once __DIR__ . $Path . "headers/header_of_login.php";    
-
-            include_once $viewPath;
-                        
-
-        } else if (file_exists($viewPath) && $view === '/user/sing_up') {
-
-            require_once __DIR__ . $Path . "headers/header_of_sing_up.php";    
+        switch($view){
             
-            include_once $viewPath;    
+            case '/dashboard/home':  
+            include $viewPath;
+            break;
             
-         
-        } else if (file_exists($viewPath) && ($view === '/dashboard/board' || $view === '/dashboard/employees' || $view === '/dashboard/equipment') ) {
-
-            require_once __DIR__ . $Path . "headers/header_of_board.php";    
+            case '/user/login':
+            include $viewPath;
+            break;
             
-            require_once __DIR__ . $Path . "nav/nav_board.php";
-
-            include_once $viewPath;    
+            case '/user/sing_up':    
+            include $viewPath;
+            break;
             
-            require_once __DIR__ . $Path . "footers/footer_of_board.php";
+            case '/dashboard/board':       
+            include $viewPath;
+            break; 
 
-        } else {
-          die("Error: La vista '{$view}' no se encuentra en {$viewPath}");
-       }  
+            case '/dashboard/permissions':
+            include $viewPath;
+            break;
+
+            case '/client/client':
+            include $viewPath;
+            break;
+            
+            case '/employee/employee':
+            include $viewPath;
+            break;
+            
+            case(str_starts_with($view,"/dashboard")):
+            require_once __DIR__ . $Path . "headers/header_of_board.php";
+            require_once __DIR__ . $Path . "headers/permissions_header.php";
+            require_once __DIR__ . $Path . "nav/nav_board.php"; 
+            include $viewPath;
+            require_once __DIR__ . $Path . "footers/footer_of_board.php"; 
+        }        
     }
 }

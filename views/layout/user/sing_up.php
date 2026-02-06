@@ -1,3 +1,5 @@
+<?php $PATH = "./../"; require_once __DIR__ . $PATH . "headers/header_of_sing_up.php"; ?>
+
 <main class="container">
     <header class="header">
         <a href="/el_mus_culito/public/home" class="logo">El Musculito</a>

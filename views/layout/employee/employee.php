@@ -1,5 +1,7 @@
-<?php $PATH = "./../";?>
-
+<?php
+$PATH = "./../";
+require_once __DIR__ . $PATH . "headers/header_of_board.php";
+?>
 
 <main class="main-content container-xl">
     <section class="page-header">
@@ -7,6 +9,10 @@
                     <h1>Employees</h1>
                     <p>Oversee the El Mus-culito community and active memberships.</p>
                 </div>
+                 <button class="btn-primary">
+                    <span class="material-symbols-outlined">person_add</span>
+                   Add New class
+                </button>
             </section>
 
             <section class="dashboard-controls">
@@ -43,3 +49,5 @@
                <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
         </div>
 </main>                        
+
+<?php require_once __DIR__ . $PATH . "footers/footer_of_board.php" ?>

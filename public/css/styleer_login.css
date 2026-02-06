@@ -1,166 +1,210 @@
-  body {
-    background-image:
-    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDTjGF9ewfrLbJC1Fmpz6IrweqAGUw4bxoEZoslzMBxpiuPtqyIMkm-8szGcN4ns-JGLl9mIeR0lMqxe9TR0F4JGk54KIDrmUAmwAqM3o2-I9Nd5ntxmcgh5ny-lwX4nhwwsDZ7ZxmF72UpReZWtybXpdcTtZM2UtOKgrxZaJ9cig9DgZ6qRmlf__7L8e8qhTj6a2yTInzcFrITJ15rpeUwl2WioFwparbKwMJFn5h167bMPG2KZtULZhBjdRGP2ZtyRA0PlJ7fPo");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    box-sizing: border-box;
-    width: 100vh;
-    margin: 0;
-    padding: 0;
-  }
-
-
-a {
-  text-decoration: none;
-  color: black;
+/* 1. RESET Y ESTRUCTURA BASE */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                    url("https://lh3.googleusercontent.com/aida-public/AB6AXuCDTjGF9ewfrLbJC1Fmpz6IrweqAGUw4bxoEZoslzMBxpiuPtqyIMkm-8szGcN4ns-JGLl9mIeR0lMqxe9TR0F4JGk54KIDrmUAmwAqM3o2-I9Nd5ntxmcgh5ny-lwX4nhwwsDZ7ZxmF72UpReZWtybXpdcTtZM2UtOKgrxZaJ9cig9DgZ6qRmlf__7L8e8qhTj6a2yTInzcFrITJ15rpeUwl2WioFwparbKwMJFn5h167bMPG2KZtULZhBjdRGP2ZtyRA0PlJ7fPo");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Centrado Maestro del Contenedor */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 2. CONTENEDOR PRINCIPAL */
 .container-login {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+/* 3. SECCIÓN DEL LOGO */
 .logo-section {
   text-align: center;
   color: white;
+  margin-bottom: 25px;
+}
+
+.logo-section h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  letter-spacing: 1px;
 }
 
 .mus-culito {
   color: #13ec5b;
-}
-
-.title {
-  font-size: 20px;
-  text-align: center;
   font-weight: bold;
-  color: white;
+  text-shadow: 0 0 10px rgba(19, 236, 91, 0.3);
 }
 
+/* 4. LA TARJETA (LOGIN CART) */
 .login-cart {
+  background-color: rgba(16, 34, 22, 0.95);
+  border: 1px solid rgba(146, 201, 164, 0.2);
+  border-radius: 12px;
+  padding: 40px; /* Espaciado interno generoso para que no se vea "feo" */
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
-  max-width: 400px;
-  min-width: 280px;
-  padding: 5px;
-  margin: 4px 4px;
-  border: 1px solid rgba(146, 201, 164, 0.1);
-  border-radius: 8px;
-  background-color: rgba(16, 34, 22, 0.85);
-  box-sizing: border-box;
 }
 
+.title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.title h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.title p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* 5. FORMULARIO E INPUTS */
 .login-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-top: 5px;
-  width: 100%;
 }
 
 .login-form label {
   margin-bottom: 8px;
-  color: white;
-  font-weight: bold;
-}
-
-input {
-  padding: 15px;
-  margin-bottom: 8px;
-  background-color: rgba(16, 34, 22, 0.85);
-  border: 1px solid rgba(146, 201, 164, 0.1);
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-button {
-  background-color: #13ec5b;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 12px;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 5px;
-}
-
-.footer-links-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-.footer-links {
-  padding-right: 40px;
+  color: #eee;
+  font-weight: 600;
   font-size: 14px;
 }
 
+input {
+  padding: 14px;
+  margin-bottom: 18px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(146, 201, 164, 0.3);
+  border-radius: 6px;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #13ec5b;
+}
+
+/* 6. BOTONES (Centrado Atómico) */
+button, .btn-secondary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;           /* Flexbox para centrar texto */
+  justify-content: center; /* Centrado horizontal del texto */
+  align-items: center;     /* Centrado vertical del texto */
+  transition: all 0.3s ease;
+  text-decoration: none;   /* Por si usas <a> */
+  border: none;
+}
+
+/* Botón de Login (Submit) */
+button[type="submit"] {
+  background-color: #13ec5b;
+  color: #000;
+  margin-top: 5px;
+  margin-bottom: 12px;
+}
+
+/* Botón de Sign Up (Enlace con estilo de botón) */
+
+.btn-secondary > a{
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.btn-secondary {
+  background-color: transparent;
+  color: #13ec5b;
+  border: 1px solid #13ec5b;
+}
+
+button:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(19, 236, 91, 0.2);
+}
+
+button:active, .btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* 7. FOOTER LINKS */
+.footer-links-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .link {
-  color: #35424a;
-  margin-left: 20px;
+  color: #888;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #13ec5b;
 }
 
 .copy {
   text-align: center;
-  font-size: 12px;
-  color: #777;
+  font-size: 11px;
+  color: #555;
 }
 
-button:hover {
-  box-shadow: #000000bd 0px 4px 15px;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-.link:hover {
-  color: #ccc;
-}
-
-@media (min-width: 320px) {
-  .container-login,
+/* 8. MEDIA QUERIES SIMPLIFICADOS */
+@media (max-width: 480px) {
   .login-cart {
-    align-items: center;
-    width: 50%;
-    margin: 10px auto;
+    padding: 25px;
   }
-}
-
-@media (min-width: 768px) {
-  .container-login,
-  .login-cart {
-    width: 400px;
-    margin: 20px auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-login,
-  .login-cart {
-    width: 400px;
-    margin: 10px auto;
-  }
-}
-
-@media (min-width: 1440px) {
-  .container-login,
-  .login-cart {
-    width: 400px;
-    margin: 10px auto;
-  }
-}
-
-@media (min-width: 768px) {
-  .container-login,
-  .login-cart {
-    width: 350px;
-    padding: 30px;
+  
+  .logo-section h1 {
+    font-size: 1.8rem;
   }
 }

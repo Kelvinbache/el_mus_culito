@@ -67,7 +67,7 @@ class Tables {
          user_name varchar(255) not null,
          user_lastname varchar(255) not null,
          user_dni varchar(12) unique not null,
-         user_email varchar(255) unique not null
+         user_email varchar(255) unique not null,
          user_phone varchar(20) unique not null,
          user_password varchar(255) not null
        );

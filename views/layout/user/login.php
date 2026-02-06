@@ -1,3 +1,9 @@
+<?php 
+$PATH = "./../"; 
+require_once __DIR__ . $PATH . "headers/header_of_login.php"; 
+?>
+
+
 <main class="container-login">
  <section class="logo-section">
  <h1>EL <span class="mus-culito">MUS-CULITO</span></h1>
@@ -14,7 +20,7 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="password" required>
     <button type="submit">Login</button>
-    <button><a href="/el_mus_culito/public/sing_up">Sing Up</a></button>
+    <button class="btn-secondary"><a href="/el_mus_culito/public/sing_up">Sing Up</a></button>
     </form>
  </section>
  <section class="footer-links-section">

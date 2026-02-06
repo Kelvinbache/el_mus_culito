@@ -18,40 +18,26 @@ class Router {
     
      $method = $_SERVER["REQUEST_METHOD"] ?? "GET";
      
+          
      if (isset($this->routers[$method])) {
        
         if (isset($this->routers[$method][$url])) {
-            $controller = $this-> routers[$method][$url];
-           
-            if (is_object($controller)) {
-              
-            if ($url === '/home') {
-               return $controller -> index("/dashboard" . $url);
-              }    
-              
-            if ($url === '/login') {
-                return $controller -> index("/user" . $url); 
-            }
-
-            if ($url === '/sing_up') {
-                return $controller -> index("/user" . $url);  
-            }
-
-            if ($url === '/dashboard/board') {
-                return $controller -> index($url);
-              
-            }
-
-            if ($url === '/dashboard/employees'){
-                return $controller -> index($url);
-            }
-
-            if ($url === "/dashboard/equipment"){
-               return $controller -> index($url);
-            }
           
+          $controller = $this-> routers[$method][$url];
+          
+          $data = [
+           'username' => $_SESSION['user_session']['username'] ?? 'Invitado',
+           'role'     => $_SESSION['user_session']['role'] ?? 'Visitante'
+         ];
+                   
+                   
+
+          if (is_object($controller)) {
+            return $controller -> index($url, $data);
+
           }
-            if (is_callable($controller)) {
+          
+          if (is_callable($controller)) {
              return $controller();
           }; 
           
@@ -66,8 +52,5 @@ class Router {
        echo "405 Method Not Allowed - El método no está permitido: " . $method;
        exit;
      }
-    //  http_response_code(500);
-    //  echo "500 Internal Server Error";
-    //  exit;
   }
 }

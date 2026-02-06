@@ -132,6 +132,8 @@ body.dark-mode .brand-icon span {
     display: block;
   }
 }
+
+
 .user-role {
   font-size: 0.75rem;
   font-weight: bold;
@@ -330,6 +332,7 @@ body.dark-mode .brand-icon span {
 .table-scroll {
   overflow-x: auto;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -350,6 +353,7 @@ td {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
+
 tr:hover {
   background: var(--primary-dim);
 }
@@ -366,6 +370,7 @@ tr:hover {
   background-size: cover;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .client-cell .name {
   font-weight: bold;
   font-size: 0.875rem;

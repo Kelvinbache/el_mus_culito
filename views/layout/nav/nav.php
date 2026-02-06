@@ -1,4 +1,4 @@
-    <header class="main-header glass-nav">
+<header class="main-header glass-nav">
         <div class="container header-container">
             <div class="logo group">
                 <div class="logo-icon">
@@ -15,8 +15,8 @@
             </nav>
             
             <div class="header-actions">
-                <button class="btn-login"><a href="/el_mus_culito/public/login">Login</a></button>
-                <button class="btn-primary"><a href="/el_mus_culito/public/sing_up">Join the Tribe</a></button>
+                <a href= "/el_mus_culito/login" class="btn-primary">Login</a>
+                <a href= /el_mus_culito/sing_up class="btn-secondary">Join the Tribe</a>
             </div>
         </div>
     </header>

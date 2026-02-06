@@ -1,4 +1,13 @@
-    <main class="content-wrapper">
+<?php 
+
+$PATH = "./../";
+
+require_once __DIR__ . $PATH .  "headers/header.php"; 
+require_once __DIR__ . $PATH . "nav/nav.php";
+
+?>
+
+<main class="content-wrapper">
         <section class="hero container">
             <div class="hero-bg-text">MUSCULO</div>
             <div class="hero-grid">
@@ -116,4 +125,5 @@
         </section>
     </main>
 
-    
+<?php require_once __DIR__ . $PATH . "footers/footer_of_home.php" ?>
+  

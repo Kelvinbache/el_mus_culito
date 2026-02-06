@@ -1,14 +1,19 @@
+<?php
+
+$PATH = "./../";
+require_once __DIR__ . $PATH . "headers/header_of_board.php";
+require_once __DIR__ . $PATH . "headers/permissions_header.php";
+require_once __DIR__ . $PATH . "nav/nav_board.php"; 
+
+?>
+
 <main class="main-content container-xl">
             <section class="page-header">
                 <div class="title-group">
-                    <h1>Client Management</h1>
+                    <h1>Management</h1>
                     <p>Oversee the El Mus-culito community and active memberships.</p>
                 </div>
-                <button class="btn-primary">
-                    <span class="material-symbols-outlined">person_add</span>
-                    Add New Client
-                </button>
-            </section>
+        </section>
 
             <section class="dashboard-controls">
                 <div class="stat-card">
@@ -43,35 +48,11 @@
                 </div>
             </section>
 
-            <section class="table-container">
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Client Name</th>
-                                <th>Membership Type</th>
-                                <th>Status</th>
-                                <th>Last Payment</th>
-                                <th class="text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="client-cell">
-                                        <div class="client-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop');"></div>
-                                        <div>
-                                            <p class="name">Sarah Jenkins</p>
-                                            <p class="email">sarah.j@example.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>  
-          <div class="action-btns table-bottom-actions">
+           <?php  require_once __DIR__ . $PATH . "table/table_admin.php"?>
+
+           <div class="action-btns table-bottom-actions">
                <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
         </div>
 </main>    
+
+<?php require_once __DIR__ . $PATH . "footers/footer_of_board.php" ?>
