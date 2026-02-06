@@ -21,6 +21,7 @@ class LoginController extends Controller {
             
           case($url === "/"):
           $PATH = "/dashboard/home";
+          return $this->render($PATH, $data);
           break;
 
           case($url === "/login" || $url ==="/sing_up"):
