@@ -1,14 +1,6 @@
 /* =========================================
-   1. VARIABLES Y RESET (Base del Diseño)
+   1. CORE & RESET
    ========================================= */
-:root {
-    --primary: #80ec13;
-    --bg-dark: #0a0c07;
-    --white: #ffffff;
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --border-color: rgba(255, 255, 255, 0.1);
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -16,191 +8,226 @@
 }
 
 body {
-    font-family: "Inter", sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--white);
-    line-height: 1.5;
+    background: #0a0c07;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    text-align: center; /* Centrado base para textos */
+    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centrado de bloques hijos */
+    padding: 0 20px;
 }
 
 /* =========================================
-   2. TIPOGRAFÍA (Archivo Black)
+   2. HERO SECTION (Layout Maestro)
    ========================================= */
-h1, h2, h3, h4, .btn-cta, .btn-secondary, .logo-text {
-    font-family: "Archivo Black", sans-serif;
-    text-transform: uppercase;
-    font-style: italic;
+.content-wrapper {
+    position: relative;
+    padding-top: 60px;
 }
-
-.text-primary { color: var(--primary); }
-.text-stroke {
-    -webkit-text-stroke: 1px var(--white);
-    color: transparent;
-}
-
-/* =========================================
-   3. HERO SECTION (Layout Centrado)
-   ========================================= */
-.content-wrapper { padding-top: 80px; width: 100%; }
 
 .hero {
     position: relative;
-    padding: 6rem 0;
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 
-/* Marca de agua gigante de fondo */
+/* Texto de fondo */
 .hero-bg-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18vw;
-    font-family: "Archivo Black", sans-serif;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22vw;
     color: rgba(255, 255, 255, 0.02);
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
-    white-space: nowrap;
+    user-select: none;
 }
 
+/* Grid del Hero - Corregida */
 .hero-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
-    grid-template-columns: 1fr; /* Una columna para centrar en móvil */
-    gap: 4rem;
-    width: 100%;
+    grid-template-columns: 1fr; /* Móvil */
+    gap: 40px;
     align-items: center;
-    justify-items: center; /* Centrado de elementos dentro de la grid */
+    width: 100%;
 }
 
 @media (min-width: 1024px) {
     .hero-grid {
-        grid-template-columns: 1fr 1fr; /* Dos columnas en PC */
-        text-align: left;
+        grid-template-columns: 1fr 1fr; /* Eliminamos el espacio del div vacío con el CSS */
     }
+    /* Si el div vacío sigue ahí en el HTML, esto lo ignora */
+    .hero-grid > div:first-child:empty { display: none; } 
 }
 
 /* =========================================
-   4. CONTENIDO DEL HERO (Textos y Botones)
+   3. COMPONENTES DEL HERO
    ========================================= */
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra textos en móvil */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(128, 236, 19, 0.1);
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(128, 236, 19, 0.2);
 }
 
-@media (min-width: 1024px) {
-    .hero-content {
-        align-items: flex-start; /* Izquierda en PC */
-    }
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #80ec13;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #80ec13;
+}
+
+.badge-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .main-title {
-    font-size: clamp(3rem, 8vw, 5.5rem);
-    line-height: 0.85;
-    margin-bottom: 2rem;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.9;
+    font-style: italic;
+    text-transform: uppercase;
+    margin-bottom: 20px;
 }
 
+.text-primary { color: #80ec13; }
+
 .hero-description {
-    color: var(--text-muted);
+    color: rgba(255,255,255,0.6);
     font-size: 1.1rem;
-    max-width: 500px;
-    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-bottom: 35px;
 }
 
 .hero-btns {
     display: flex;
-    gap: 1rem;
-    justify-content: center; /* Centra botones */
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .btn-cta {
-    background-color: var(--primary);
-    color: var(--bg-dark);
-    padding: 1.2rem 2.5rem;
+    background: #80ec13;
+    color: #000;
+    padding: 18px 35px;
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
     border: none;
-    box-shadow: 4px 4px 0px var(--white);
     cursor: pointer;
+    box-shadow: 4px 4px 0 #fff;
     transition: 0.3s;
 }
 
 .btn-secondary {
-    background-color: transparent;
-    border: 2px solid var(--white);
-    color: var(--white);
-    padding: 1.2rem 2.5rem;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 18px 35px;
+    font-family: 'Archivo Black', sans-serif;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
     cursor: pointer;
 }
 
 /* =========================================
-   5. VISUAL CARD (La Imagen)
+   4. VISUAL CARD & STATS (La Imagen)
    ========================================= */
 .hero-visual {
+    position: relative;
     width: 100%;
-    max-width: 500px; /* Tamaño controlado para no deformar */
     display: flex;
     justify-content: center;
-    position: relative;
 }
 
 .visual-card {
     width: 100%;
-    height: 500px; /* Altura obligatoria para que la imagen se vea */
+    max-width: 500px;
+    height: 550px;
     background-size: cover;
     background-position: center;
-    border-radius: 2rem;
+    border-radius: 30px;
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, var(--bg-dark), transparent);
+    background: linear-gradient(to top, #0a0c07 10%, transparent 60%);
 }
 
 .stat-badge {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: rgba(0,0,0,0.7);
-    padding: 1rem;
-    border-radius: 1rem;
+    top: 25px;
+    right: 25px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px 20px;
+    border-radius: 20px;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.stat-value {
-    display: block;
-    color: var(--primary);
-    font-weight: bold;
-    font-size: 1.3rem;
+.stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.5); display: block; }
+.stat-value { font-size: 1.5rem; font-weight: 900; color: #80ec13; font-family: 'Archivo Black'; }
+
+/* Footer de la imagen (Glass) */
+.card-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    width: 75%;
+    height: 100%;
+    background: #80ec13;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #80ec13;
 }
 
 /* =========================================
-   6. SECCIONES DE STATS Y FEATURES
+   5. SECCIÓN STATS
    ========================================= */
+.stats { padding: 80px 0; }
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin: 4rem 0;
-    width: 100%;
+    gap: 30px;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -208,54 +235,68 @@ h1, h2, h3, h4, .btn-cta, .btn-secondary, .logo-text {
 }
 
 .stat-number {
-    font-size: 2.5rem;
-    color: var(--primary);
-    font-family: "Archivo Black", sans-serif;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    margin-top: 3rem;
-}
-
-.feature-card {
-    background: rgba(255, 255, 255, 0.02);
-    padding: 2.5rem;
-    border: 1px solid var(--border-color);
-    text-align: center;
-}
-
-.feature-icon span {
+    font-family: 'Archivo Black';
     font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
+    color: #80ec13;
+    line-height: 1;
+}
+
+.stat-category {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
 }
 
 /* =========================================
-   7. FINAL CTA (Caja Verde)
+   6. SECCIÓN FEATURES
+   ========================================= */
+.features { padding: 100px 0; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-title { font-family: 'Archivo Black'; font-size: 3rem; text-transform: uppercase; }
+.text-stroke { -webkit-text-stroke: 1px #fff; color: transparent; }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.02);
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    border-color: #80ec13;
+    background: rgba(128, 236, 19, 0.02);
+}
+
+.feature-icon span { font-size: 3rem; color: #80ec13; margin-bottom: 20px; }
+
+/* =========================================
+   7. FINAL CTA
    ========================================= */
 .cta-box {
-    background-color: var(--primary);
-    width: 100%;
-    padding: 5rem 2rem;
-    border-radius: 2rem;
-    margin: 4rem 0;
-    color: var(--bg-dark);
+    background: #80ec13;
+    padding: 80px 40px;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: #000;
 }
 
-.cta-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    margin-bottom: 1.5rem;
-}
+.cta-title { font-family: 'Archivo Black'; font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 20px; }
+.cta-text { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; font-weight: 500; }
 
 .btn-dark {
-    background-color: var(--bg-dark);
-    color: var(--primary);
-    padding: 1.2rem 2.5rem;
+    background: #000;
+    color: #80ec13;
+    padding: 20px 40px;
+    font-family: 'Archivo Black';
     border: none;
-    font-family: "Archivo Black", sans-serif;
     cursor: pointer;
 }
