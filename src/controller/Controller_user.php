@@ -72,15 +72,15 @@ class LoginController extends Controller {
             
             switch($type_user["type_user"]) {
                     case "user": 
-                        header("Location: /el_mus_culito/client");     
+                        header("Location: /client");     
                         break;
 
                     case "employee":
-                        header("Location: /el_mus_culito/employee");
+                        header("Location: /employee");
                         break;
                     
                     case "admin": 
-                        header("Location: /el_mus_culito/board"); 
+                        header("Location: /board"); 
                         break;
 
                     default:
@@ -129,7 +129,7 @@ class LoginController extends Controller {
              $stmt->bindParam(':id_people', $id_new_person);  
              $stmt->execute();
              
-             header("Location: /el_mus_culito/user");    
+             header("Location: /client");    
              
         } 
       
@@ -164,7 +164,7 @@ class LoginController extends Controller {
         }
     }
 
-    header("Location: /el_mus_culito/permissions");
+    header("Location: /permissions");
     exit;
   }
 }
