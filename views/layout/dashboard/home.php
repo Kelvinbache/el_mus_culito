@@ -12,10 +12,6 @@ require_once __DIR__ . $PATH . "nav/nav.php";
             <div class="hero-bg-text">MUSCULO</div>
             <div class="hero-grid">
                 <div class="hero-content">
-                    <div class="badge">
-                        <span class="dot"></span>
-                        <span class="badge-text">Powering 500+ Elite Gyms</span>
-                    </div>
                     <div class="hero-titles">
                         <h1 class="main-title">
                             El Mus-culito <br/>
