@@ -11,7 +11,6 @@ require_once __DIR__ . $PATH . "nav/nav.php";
         <section class="hero container">
             <div class="hero-bg-text">MUSCULO</div>
             <div class="hero-grid">
-                <div></div>
                 <div class="hero-content">
                     <div class="badge">
                         <span class="dot"></span>
