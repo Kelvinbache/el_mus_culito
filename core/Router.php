@@ -12,8 +12,8 @@ class Router {
 
   public function run(){
      $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-   
-     $prefixes = ['/el_mus_culito/public', '/el_mus_culito'];
+     
+     $prefixes = ['/el_mus_culito/public', '/el_mus_culito', '/public'];
      foreach ($prefixes as $prefix) {
          if (strpos($url, $prefix) === 0) {
              $url = substr($url, strlen($prefix));
