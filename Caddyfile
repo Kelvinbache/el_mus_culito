@@ -1,22 +1,25 @@
 {
+    # Configuración global
     frankenphp
+    order php_server before file_server
 }
 
 :{$PORT:8080}
 
-# Forzar que el servidor sepa dónde está la raíz
-root * /app/public
+# Definimos la raíz fuera de cualquier bloque
+root * public/
 
-# Procesar PHP
+# Procesamos PHP primero
 php_server {
-    root /app/public
     env DATABASE_URL {env.DATABASE_URL}
 }
 
-# Manejar las rutas del Router
+# Si no es un archivo PHP ni un archivo real, enviamos al index.php
 @not_file {
     not file {path}
+    not path *.php
 }
 rewrite @not_file /index.php?{query}
 
+# Servimos archivos estáticos (CSS, JS)
 file_server
