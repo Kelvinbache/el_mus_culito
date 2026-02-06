@@ -5,8 +5,12 @@ namespace Config;
 require __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
+
+if (file_exists(__DIR__ . '/../.env')) {
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+$dotenv->load();   
+}
+
 
 
 class DB_Postgrest{
