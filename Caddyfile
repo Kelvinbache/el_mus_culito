@@ -4,20 +4,19 @@
 
 :{$PORT:8080}
 
-route {
-    root * public/
+# Forzar que el servidor sepa dónde está la raíz
+root * /app/public
 
-    # 1. Si el archivo es físico (CSS, JS, imágenes), dalo directamente
-    file_server
-
-    # 2. Obliga a que todas las peticiones pasen por el procesador PHP
-    php_server {
-        env DATABASE_URL {env.DATABASE_URL}
-    }
-
-    # 3. Reescribe las rutas para que el Router funcione
-    @not_file {
-        not file {path}
-    }
-    rewrite @not_file /index.php?{query}
+# Procesar PHP
+php_server {
+    root /app/public
+    env DATABASE_URL {env.DATABASE_URL}
 }
+
+# Manejar las rutas del Router
+@not_file {
+    not file {path}
+}
+rewrite @not_file /index.php?{query}
+
+file_server
