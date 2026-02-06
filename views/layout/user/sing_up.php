@@ -2,7 +2,7 @@
 
 <main class="container">
     <header class="header">
-        <a href="/el_mus_culito/public/home" class="logo">El Musculito</a>
+        <a href="/el_mus_culito/public/" class="logo">El Musculito</a>
 
     </header>
     
