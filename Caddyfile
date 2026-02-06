@@ -4,10 +4,11 @@
 
 :{$PORT:8080}
 
-root * public/
+route {
+    root * public/
+    file_server
 
-file_server
-
-php_server {
-    env DATABASE_URL {env.DATABASE_URL}
+    php_server {
+        env DATABASE_URL {env.DATABASE_URL}
+    }
 }

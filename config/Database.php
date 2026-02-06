@@ -19,14 +19,14 @@ class DB_Postgrest{
     public function connect(){
         $this->conn = null;
         try {
-           
-           $DATABASE_URL=$_ENV['DATABASE_URL'];
 
-           if (!$DATABASE_URL) {
-                throw new \Exception("La variable DATABASE_URL no está configurada.");
-            }
-           
-           $dbConfig = parse_url($DATABASE_URL);
+           $url = getenv('DATABASE_URL') ?: ($_ENV['DATABASE_URL'] ?? $_SERVER['DATABASE_URL'] ?? null);
+
+           if (!$url) {
+             throw new \Exception("La variable DATABASE_URL no está configurada. Fuentes revisadas: getenv, ENV, SERVER.");
+           }
+                      
+           $dbConfig = parse_url($url);
            $host = $dbConfig['host'] ?? null;
            $port = $dbConfig['port'] ?? '5432';
            $user = $dbConfig['user'] ?? null;
