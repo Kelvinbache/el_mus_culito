@@ -1,0 +1,143 @@
+:root {
+    --primary: #3cf91a;
+    --primary-hover: #34d616;
+    --bg-dark: #12230f;
+    --card-dark: #1c3518;
+    --input-bg: #132310;
+    --border-color: #386a2f;
+    --text-main: #ffffff;
+    --text-muted: #98cc8e;
+    --font-main: 'Lexend', sans-serif;
+    --closer: #e13434;
+    --closer-hover : #ff0000;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Contenedor Centrado */
+.card-wrapper.centered-layout {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Más estrecho para mejor lectura sin sidebar */
+    background-color: var(--card-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+}
+
+.form-content {
+    width: 100%;
+    padding: 3.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-header p {
+    color: var(--text-muted);
+}
+
+/* Formulario en Grid */
+.employee-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.form-group { display: flex; flex-direction: column; }
+.full-width { grid-column: span 2; }
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+}
+
+.input-wrapper { position: relative; }
+
+.input-wrapper .material-symbols-outlined {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary); /* Color de iconos resaltado */
+    font-size: 1.25rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.85rem 1rem 0.85rem 3rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    background-color: rgba(60, 249, 26, 0.05);
+}
+
+/* Botones */
+.form-actions {
+    display: flex;
+    margin-top: 0.50rem;
+}
+
+.btn-submit {
+    flex: 2;
+    background-color: var(--primary);
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.80rem;
+    cursor: pointer;
+
+}    
+
+
+.closer{
+    display: flex;
+    color: inherit;
+    justify-content: end;
+}
+
+
+.btn-secudary {
+    border: none;
+    background-color: transparent
+}
+
+.btn-secudary a {
+    text-decoration: none;
+    color: var(--closer) ;
+}
+
+.btn-secudary a:hover {
+   color: var(--closer-hover);
+   width: 20%;
+   height: 20%;
+}

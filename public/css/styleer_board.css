@@ -25,6 +25,7 @@ body.dark-mode {
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Manrope", sans-serif;
   background-color: var(--bg-light);
@@ -192,6 +193,8 @@ body.dark-mode .brand-icon span {
   cursor: pointer;
   transition: filter 0.3s;
 }
+
+
 .btn-primary:hover {
   filter: brightness(1.1);
 }

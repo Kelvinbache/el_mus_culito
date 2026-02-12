@@ -7,6 +7,10 @@
                     <h1>Employees</h1>
                     <p>Oversee the El Mus-culito community and active memberships.</p>
                 </div>
+                <button class="btn-primary">
+                    <span class="material-symbols-outlined">person_add</span>
+                    <a href="/el_mus_culito/employees/new_employee">New Employee</a>
+                </button>
             </section>
 
             <section class="dashboard-controls">

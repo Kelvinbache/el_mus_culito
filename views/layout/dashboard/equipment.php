@@ -5,8 +5,10 @@
                     <p>Oversee the El Mus-culito community and active memberships.</p>
                 </div>
                 <button class="btn-primary">
-                    <span class="material-symbols-outlined">person_add</span>
+                    <span class="material-symbols-outlined">fitness_center</span>
+                    <a href="/el_mus_culito/equipment/new_equipment">
                    New Equipment
+                    </a>
                 </button>
             </section>
 
@@ -49,23 +51,61 @@
                         <thead>
                             <tr>
                                 <th>Name Equipment</th>
-                                <th>Type Equipment</th>
                                 <th>Status</th>
+                                <th>Count</th>
                                 <th class="text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php if (!empty($machine)): ?>
+                            <?php foreach ($machine as $row): ?>
                             <tr>
                                 <td>
                                     <div class="client-cell">
                                         <div class="client-avatar" style="background-image: url('https://equiposdelfisio.com/wp-content/uploads/2023/05/multifuerza-fondo-blanco-.jpg');"></div>
                                         <div>
-                                            <p class="name">Multifuerza</p>
-                                            <p class="email">Ejercicios de fuerza</p>
+                                            <p class="name"><?php echo htmlspecialchars($row['machine_name'])?></p>
                                         </div>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="client-cell">
+                                        <div>
+                                            <p class="name"><?php echo htmlspecialchars($row['machine_status'])?></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-cell">
+                                        <div>
+                                            <p class="name"><?php echo htmlspecialchars($row['count_machine'])?></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                 <td class="text-right">
+                                <div class="action-buttons">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="id" value="<?= $row['id_machine']?>">
+                                    <input type="hidden" name="role" value="<?= $role?>">
+                                    <button type="submit" class="material-symbols-outlined" style="background:none; border:none; color:red; cursor:pointer;">
+                                        delete
+                                    </button>
+                                </form>
+                                    <a href="/el_mus_culito/edict?id=<?= $row['id_machine'] ?>" 
+                                    style="background:none; border:none; color:white; cursor:pointer;"
+                                     class="btn-action edit material-symbols-outlined" title="Edit">
+                                        edit
+                                    </a>
+                                </div>
+                            </td>
                             </tr>
+                             </tr>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                <tr>
+                                <td colspan="5" class="text-center">No se encontraron usuarios con roles asignados.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

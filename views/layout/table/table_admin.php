@@ -1,4 +1,4 @@
- <section class="table-container">
+<section class="table-container">
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -7,7 +7,7 @@
                                 <th>Membership Type</th>
                                 <th>Status</th>
                                 <th>Last Payment</th>
-                                <th class="text-right">Actions</th>
+                                <th class="">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,12 +40,22 @@
                                         <div></div>
                                     </div>
                                 </td>
-                                 <td>
-                                    <div>
-                                        <Button class="material-symbols-outlined">Delete</Button>
-                                        <Button class="material-symbols-outlined">Edit</Button>
-                                    </div>
-                                </td>
+                                 <td class="text-right">
+                                <div class="action-buttons">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="id" value="<?= $row['id_people']?>">
+                                    <input type="hidden" name="role" value="<?= $row['type_user']?>">
+                                    <button type="submit" class="material-symbols-outlined" style="background:none; border:none; color:red; cursor:pointer;">
+                                        delete
+                                    </button>
+                                </form>
+                                    <a href="/el_mus_culito/edict?id=<?= $row['id_people'] ?>" 
+                                    style="background:none; border:none; color:white; cursor:pointer;"
+                                     class="btn-action edit material-symbols-outlined" title="Edit">
+                                        edit
+                                    </a>
+                                </div>
+                            </td>
                                 <?php endif; ?>
                              </tr>
                                 <?php endforeach; ?>

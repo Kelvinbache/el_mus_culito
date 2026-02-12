@@ -1,0 +1,221 @@
+/* Configuración de Variables y Base */
+:root {
+    --primary: #39FF14;
+    --background-dark: #0a0a0a;
+    --surface-dark: #141414;
+    --border-dark: #262626;
+    --text-slate: #64748b;
+    --text-white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+
+body {
+    background-color: var(--background-dark);
+    color: #f1f5f9;
+    min-height: screen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Efecto de Brillo de Fondo */
+.glow-background {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -10;
+    width: 500px;
+    height: 500px;
+    background-color: rgba(57, 255, 20, 0.1);
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+}
+
+/* Contenedor Principal (Card) */
+.card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 28rem; /* max-w-md */
+    background-color: var(--surface-dark);
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-dark);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+}
+
+.icon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    background-color: rgba(57, 255, 20, 0.1);
+    margin-bottom: 1rem;
+    border: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.icon-box .material-symbols-outlined {
+    color: var(--primary);
+    font-size: 1.875rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-white);
+}
+
+.subtitle {
+    color: var(--text-slate);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+/* Formulario */
+.form-container {
+    padding: 2rem;
+}
+
+.space-y-6 > * + * { margin-top: 1.5rem; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+
+label {
+    display: block;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-slate);
+    margin-left: 0.25rem;
+}
+
+/* Inputs y Selects */
+.input-field, .select-field {
+    width: 100%;
+    background-color: var(--background-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    color: white;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-field::placeholder {
+    color: #334155;
+}
+
+.input-field:focus, .select-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(57, 255, 20, 0.4);
+}
+
+.grid-cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+/* Personalización del Select */
+.select-field {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Botones */
+.btn-submit {
+    width: 100%;
+    background-color: var(--primary);
+    color: black;
+    font-weight: 900;
+    font-size: 0.875rem;
+    padding: 1.25rem 2rem;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    box-shadow: 0 10px 30px -10px rgba(57, 255, 20, 0.3);
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: #4dff2e;
+}
+
+.btn-submit:active {
+    transform: scale(0.97);
+}
+
+.btn-discard {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-slate);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    margin-top: 0.75rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+}
+
+.btn-discard:hover {
+    color: white;
+}
+
+/* Decoración Inferior */
+.corner-icon {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    color: rgba(57, 255, 20, 0.1);
+    pointer-events: none;
+}
+
+.corner-icon span {
+    font-size: 60px;
+    transform: rotate(45deg);
+}
+
+/* Quitar flechas en Chrome, Safari, Edge y Opera */
+.input-field::-webkit-outer-spin-button,
+.input-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar flechas en Firefox */
+.input-field[type=number] {
+    -moz-appearance: textfield;
+}

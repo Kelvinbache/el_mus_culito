@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <header class="main-header">
             <div class="header-content container-xl">
                 <div class="brand">

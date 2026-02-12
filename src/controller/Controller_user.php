@@ -8,7 +8,7 @@ require_once __DIR__ . "./../controller/Controller_All_list.php";
 use Core\Controller;
 use PDO;
 use App\Controller\All_list;
-
+use LDAP\Result;
 
 class LoginController extends Controller {
     public function index($url, $data = []) {  
@@ -16,6 +16,8 @@ class LoginController extends Controller {
         $PATH = null;
         $all_list = new  All_list();
         $data["user"] = $all_list->all_list_user();
+        $data["machine"] = $all_list->all_list_machines();
+
 
         switch($url) {
             
@@ -31,9 +33,21 @@ class LoginController extends Controller {
           case($url === "/client"):
              $PATH = "/client";
              break;
+
           case($url === "/employee"):
              $PATH = "/employee";
-             break;       
+             break;
+            
+          case($url === "/edict"):
+             $PATH = "/edict";
+             break; 
+
+          case($url === "/employees/new_employee"):
+            break;
+
+          case($url === "/equipment/new_equipment"):
+            break;
+        
        
           case($url === "/board" || $url === "/user" || $url === "/employees" || $url === "/equipment" || $url === "/permissions"):
             $PATH = "/dashboard";
@@ -70,6 +84,7 @@ class LoginController extends Controller {
             $type_user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             $_SESSION['user_session'] = [
+            'id'        => $result["id_people"],
             'username'  => $user,
             'role'      => $type_user["type_user"]
             ];
@@ -78,15 +93,15 @@ class LoginController extends Controller {
             
             switch($type_user["type_user"]) {
                     case "user": 
-                        header("Location: /client");     
+                        header("Location: /el_mus_culito/client");     
                         break;
 
                     case "employee":
-                        header("Location: /employee");
+                        header("Location: /el_mus_culito/employee");
                         break;
                     
                     case "admin": 
-                        header("Location: /board"); 
+                        header("Location: /el_mus_culito/board"); 
                         break;
 
                     default:
@@ -144,6 +159,52 @@ class LoginController extends Controller {
     };
         
   }
+
+public function new_employer () {
+        try {
+
+        $db = new \Config\Tables();
+        $name = $_POST['username'];
+        $lastname = $_POST['lastname'];
+        $dni = $_POST['Cedula'];
+        $Phone = $_POST['Phone'];
+        $email = $_POST['email'];
+        $pass = $_POST['password'];
+       
+        if (empty($name) || empty($lastname) || empty($dni) || empty($Phone) || empty($email) || empty($pass)) {
+            return $this->render('/user/sing_up', ['error' => 'All fields are required.']);
+       
+            } else {
+             
+
+             $table_status = $db->exists_table();
+             $stmt = $table_status->prepare("INSERT INTO people (user_name, user_lastname, user_dni, user_phone, user_email, user_password) VALUES (:user_name, :user_lastname, :user_dni, :user_phone, :user_email, :user_password) RETURNING id_people");
+             $stmt->bindParam(':user_name', $name);
+             $stmt->bindParam(':user_lastname', $lastname);
+             $stmt->bindParam(':user_dni', $dni);
+             $stmt->bindParam(':user_phone', $Phone);
+             $stmt->bindParam(':user_email', $email);
+             $stmt->bindParam(':user_password', $pass);
+             $stmt->execute();
+             
+             $new_person = $stmt->fetch(\PDO::FETCH_ASSOC);
+             $id_new_person = $new_person['id_people'];
+
+
+             $stmt = $table_status->prepare("INSERT INTO \"user\" (id_people, type_user) values(:id_people, :type_user)");
+             $stmt->bindValue(':id_people', $id_new_person);
+             $stmt->bindValue(':type_user', "employee");
+             $stmt->execute();
+             header("Location: /el_mus_culito/employees");
+             exit();    
+             
+        } 
+      
+       } catch (\PDOException $err){
+               echo $err;
+    };
+        
+  }
   
   public function update_permission(){
      if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['role'])) {
@@ -173,4 +234,186 @@ class LoginController extends Controller {
     header("Location: /el_mus_culito/permissions");
     exit;
   }
+
+ public function new_equipment(){
+    try {
+      
+      $id_admin = $_POST["admin_id"] ?? null;
+      $machine_name = $_POST["machine_name"] ?? null;
+      $count_machine = $_POST["count_machine"] ?? null;
+      $status = $_POST["status"] ?? null;
+      
+      if (empty($id_admin)){
+          header('Content-Type: application/json');     
+          echo json_encode(['error' => 'Log in before']);
+          exit();
+      
+        } else {
+    
+        if (empty($machine_name) || empty($count_machine) || empty($status)){
+          header('Content-Type: application/json');     
+          echo json_encode(['error' => 'All fields are required']);
+          exit();  
+        
+        } else {
+          
+          $db = new \Config\Tables();
+          $conn = $db->exists_table();
+          
+          $sql = ("
+          
+          INSERT INTO machines 
+          (id_employee, machine_name, count_machine, machine_status) 
+          VALUES (:id_admin, :machine_name, :count_machine, :status)");
+          
+          $stmt = $conn->prepare($sql);
+          $stmt->bindParam(':id_admin', $id_admin);
+          $stmt->bindParam(':machine_name', $machine_name);
+          $stmt->bindParam(':count_machine', $count_machine);
+          $stmt->bindParam(':status', $status);
+          $stmt->execute();
+          
+          header("Location: /el_mus_culito/equipment");
+          exit();
+        }
+    }
+      
+    } catch (\PDOException $err){
+        echo $err->getMessage();
+    }
+ }
+
+
+  public function delete() {
+    try {
+    
+    $id = $_POST['id'] ?? null;
+    $role = $_POST['role'] ?? null;
+    $from = $_SERVER['HTTP_REFERER'] ?? '';
+    
+
+   if (isset($id) && intval($id)){   
+       
+       $db = new \Config\Tables();
+       $conn = $db->exists_table();
+       
+       if (strpos($from, 'equipment') === false) {
+
+          $stmtUser = $conn->prepare("DELETE FROM \"user\" WHERE id_people = :id");
+          $stmtUser->bindValue(':id', $id, \PDO::PARAM_INT);
+          $stmtUser->execute();
+ 
+          $stmt = $conn->prepare("DELETE FROM people WHERE id_people = :id");           
+          $stmt->bindValue(':id', $id, \PDO::PARAM_INT); 
+          $stmt->execute();
+       
+        } else {
+       
+          $stmtUser = $conn->prepare("DELETE FROM machines WHERE id_machine= :id");
+          $stmtUser->bindValue(':id', $id, \PDO::PARAM_INT);
+          $stmtUser->execute();
+        
+        }
+       
+        switch($role){
+            case 'user':
+                header("Location: /el_mus_culito/board");
+                break;   
+        
+            case 'employee':
+                header("Location: /el_mus_culito/employees");
+                break;
+            
+            case 'admin':    
+                header("Location: /el_mus_culito/equipment");
+                break;      
+        }
+
+        exit();
+            
+    } else {
+        header("Location: /board");
+        exit();
+     }
+        
+    
+    } catch (\PDOException $err){
+        error_log($err->getMessage());
+        header("Location: /el_mus_culito/board?error=db");
+        exit();
+}
+  
+}
+
+
+public function edict(){
+   try {
+        
+        $db = new \Config\Tables();
+        $table_status = $db->exists_table();
+        $from = $_SERVER['HTTP_REFERER'] ?? '';
+
+        if (strpos($from, 'equipment') === false) {
+        
+        $id       = $_POST['id'] ?? null;
+        $role     = $_POST['role'] ?? null;
+        $name     = $_POST['username'] ?? null;
+        $lastname = $_POST['lastname'] ?? null;
+        $dni      = $_POST['dni'] ?? null;
+        $email    = $_POST['email'] ?? null;
+        $pass     = $_POST['password'] ?? null;
+        $phone     = $_POST['phone'] ?? null;
+        
+        }
+
+        if (empty($name) || empty($lastname) || empty($dni) || empty($phone) || empty($email) || empty($id)) {
+            
+            header('Content-Type: application/json');     
+            echo json_encode(['error' => 'Todos los campos son obligatorios.']);
+            exit();    
+        
+        } else {
+           
+
+             $stmt = $table_status->prepare("
+             UPDATE people SET 
+             user_name = :user_name,  
+             user_lastname = :user_lastname, 
+             user_dni = :user_dni, 
+             user_phone = :user_phone, 
+             user_email = :user_email, 
+             user_password = :user_password   
+             WHERE id_people = :id");
+
+             $stmt->bindValue(':user_name', $name);
+             $stmt->bindValue(':user_lastname', $lastname);
+             $stmt->bindValue(':user_dni', $dni);
+             $stmt->bindValue(':user_phone', $phone);
+             $stmt->bindValue(':user_email', $email);
+             $stmt->bindValue(':user_password', $pass);
+             $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+             $stmt->execute();
+      
+           switch($role){
+                 case 'user':
+                     header("Location: /el_mus_culito/board");
+                     break;   
+             
+                 case 'employee':
+                     header("Location: /el_mus_culito/employees");
+                     break;
+                 
+                 case 'admin':    
+                     header("Location: /");
+                     break;      
+            }
+
+            exit();  
+        } 
+        
+       } catch (\PDOException $err){
+               echo "Error: " . $err->getMessage();
+    }
+  }
+
 }

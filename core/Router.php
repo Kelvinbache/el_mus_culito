@@ -11,6 +11,10 @@ class Router {
 
 
   public function run(){
+    
+    if (session_status() === PHP_SESSION_NONE) {
+         session_start();
+     }
      
      $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
      
@@ -31,6 +35,7 @@ class Router {
           $controller = $this-> routers[$method][$url];
           
           $data = [
+           'id' =>       $_SESSION['user_session']['id'] ?? 'Invitado',
            'username' => $_SESSION['user_session']['username'] ?? 'Invitado',
            'role'     => $_SESSION['user_session']['role'] ?? 'Visitante'
          ];

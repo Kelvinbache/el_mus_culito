@@ -44,7 +44,20 @@ abstract class Controller {
             case '/employee/employee':
             include $viewPath;
             break;
+
+            case '/equipment/new_equipment':
+            include $viewPath;
+            break;
             
+            case '/edict/edict':
+            include $viewPath;
+            break; 
+
+            case '/employees/new_employee':
+            include $viewPath;
+            break;
+         
+
             case(str_starts_with($view,"/dashboard")):
             require_once __DIR__ . $Path . "headers/header_of_board.php";
             require_once __DIR__ . $Path . "headers/permissions_header.php";
