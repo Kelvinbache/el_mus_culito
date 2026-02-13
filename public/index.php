@@ -2,10 +2,13 @@
 require_once __DIR__ . '/../core/Router.php';
 require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../src/controller/Controller_user.php';
+require_once __DIR__ . '/../src/controller/donwload.php';
+
 
 
 $router = new Core\Router();
 $login = new App\Controller\LoginController();
+$download = new App\Controller\PDFExportController();
 
 // Router is Principal
 $router->router("GET", '/',  $login);
@@ -26,6 +29,11 @@ $router->router("POST",'/board', [$login, 'delete']);
 $router->router("GET", '/client', $login);
 $router->router("POST",'/client', $login);
 
+
+$router->router("GET", '/client/new_class', $login);
+$router->router("POST",'/client/new_class', $login);
+
+
 $router->router("GET",  '/user', $login);
 $router->router("POST", '/user', $login);
 
@@ -38,6 +46,9 @@ $router->router("POST",'/employees/new_employee',[$login, 'new_employer']);
 
 $router->router("GET", '/employee', $login);
 $router->router("POST",'/employee', $login);
+
+$router->router("GET", '/employee/new_class', $login);
+$router->router("POST",'/employee/new_class', [$login,'new_class']);
 
 // equipment
 $router->router("GET",   '/equipment', $login);
@@ -53,6 +64,17 @@ $router->router("POST",'/permissions', [$login, 'update_permission']);
 // edict
 $router->router("GET", '/edict', $login);
 $router->router("POST",'/edict', [$login, 'edict']);
+
+$router->router("GET",  '/equipment/edict', $login);
+$router->router("POST", '/equipment/edict', [$login, 'edict']);
+
+// donwload
+$router->router("GET",  '/donwload/client',   [$download, 'pdf_clients']);
+
+$router->router("GET",  '/donwload/employee', [$download, 'pdf_employees']);
+
+$router->router("GET",  '/donwload/equipment',[$download, 'pdf_machines']);
+
 
 
 $router->run();

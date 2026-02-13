@@ -15,6 +15,13 @@
                         <p class="user-org" style="text-transform: capitalize"><?php echo htmlspecialchars(strtoupper($role)); ?> </p>
                     </div>
                     <div class="avatar-small" style="background-image: url('https://ui-avatars.com/api/?name=<?php echo htmlspecialchars(strtoupper($username ?? 'Invitado')); ?>&background=13ec5b&color=0d1b12');"></div>
+                    <!-- <div>
+                        <p>
+                            <a href="/el_mus_culito/login">
+                            <span class="material-icons">close</span>
+                            </a>
+                        </p>
+                    </div>  -->
                 </div>
         </div>
 </header>

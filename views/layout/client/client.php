@@ -12,7 +12,9 @@ require_once __DIR__ . $PATH . "headers/permissions_header.php";
                 </div>
                 <button class="btn-primary">
                     <span class="material-symbols-outlined">person_add</span>
+                    <a href="/el_mus_culito/client/new_class">
                     New Class
+                    </a>
                 </button>
             </section>
 

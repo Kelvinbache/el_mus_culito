@@ -51,7 +51,7 @@ require_once __DIR__ . $PATH . "nav/nav_board.php";
            <?php  require_once __DIR__ . $PATH . "table/table_admin.php"?>
 
            <div class="action-btns table-bottom-actions">
-               <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
+               <button class="btn-outline"><span class="material-symbols-outlined">download</span> <a href="/el_mus_culito/donwload/client">Export</a></button>
         </div>
 </main>    
 

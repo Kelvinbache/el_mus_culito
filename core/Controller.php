@@ -40,6 +40,10 @@ abstract class Controller {
             case '/client/client':
             include $viewPath;
             break;
+
+            case '/client/new_class':
+            include $viewPath;
+            break;    
             
             case '/employee/employee':
             include $viewPath;
@@ -49,6 +53,14 @@ abstract class Controller {
             include $viewPath;
             break;
             
+            case '/equipment/edict':
+            include $viewPath;
+            break;
+
+            case '/employee/new_class':
+            include $viewPath;
+            break;    
+
             case '/edict/edict':
             include $viewPath;
             break; 
@@ -56,6 +68,8 @@ abstract class Controller {
             case '/employees/new_employee':
             include $viewPath;
             break;
+
+            
          
 
             case(str_starts_with($view,"/dashboard")):

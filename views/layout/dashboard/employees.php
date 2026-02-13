@@ -44,6 +44,6 @@
               <?php  require_once __DIR__ . $PATH . "table/table_employees.php"?>
              
         <div class="action-btns table-bottom-actions">
-               <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
+               <button class="btn-outline"><span class="material-symbols-outlined">download</span><a href="/el_mus_culito/donwload/employee">Export</a></button>
         </div>
 </main>                        

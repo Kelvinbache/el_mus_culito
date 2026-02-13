@@ -2,6 +2,8 @@
 $PATH = "./../";
 require_once __DIR__ . $PATH . "headers/header_of_board.php";
 require_once __DIR__ . $PATH . "headers/permissions_header.php";
+require_once __DIR__ . $PATH . "nav/nav_board_user.php";
+
 ?>
 
 <main class="main-content container-xl">
@@ -12,7 +14,9 @@ require_once __DIR__ . $PATH . "headers/permissions_header.php";
                 </div>
                  <button class="btn-primary">
                     <span class="material-symbols-outlined">person_add</span>
-                   Add New class
+                    <a href="/el_mus_culito/employee/new_class">
+                     Add New class
+                    </a>                   
                 </button>
             </section>
 

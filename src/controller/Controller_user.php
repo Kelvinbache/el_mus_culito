@@ -17,7 +17,7 @@ class LoginController extends Controller {
         $all_list = new  All_list();
         $data["user"] = $all_list->all_list_user();
         $data["machine"] = $all_list->all_list_machines();
-
+        $data["class"] = $all_list->all_list_class();
 
         switch($url) {
             
@@ -34,9 +34,15 @@ class LoginController extends Controller {
              $PATH = "/client";
              break;
 
+          case($url === "/client/new_class"):
+            break;  
+
           case($url === "/employee"):
              $PATH = "/employee";
              break;
+          
+           case($url === "/employee/new_class"):   
+            break;
             
           case($url === "/edict"):
              $PATH = "/edict";
@@ -47,6 +53,9 @@ class LoginController extends Controller {
 
           case($url === "/equipment/new_equipment"):
             break;
+
+          case($url === "/equipment/edict"):
+          break;
         
        
           case($url === "/board" || $url === "/user" || $url === "/employees" || $url === "/equipment" || $url === "/permissions"):
@@ -78,20 +87,20 @@ class LoginController extends Controller {
             $result = $stmt->fetch(\PDO::FETCH_ASSOC);
             
 
-            $stmt = $table_status->prepare("SELECT type_user FROM \"user\" WHERE id_people = :id_people");
+            $stmt = $table_status->prepare("SELECT id_user, type_user FROM \"user\" WHERE id_people = :id_people");
             $stmt->bindParam(':id_people', $result["id_people"]);
             $stmt->execute();
-            $type_user = $stmt->fetch(\PDO::FETCH_ASSOC);
+            $new_user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             $_SESSION['user_session'] = [
-            'id'        => $result["id_people"],
+            'id'        => $new_user["id_user"],
             'username'  => $user,
-            'role'      => $type_user["type_user"]
+            'role'      => $new_user["type_user"]
             ];
           
             session_write_close();
             
-            switch($type_user["type_user"]) {
+            switch($new_user["type_user"]) {
                     case "user": 
                         header("Location: /el_mus_culito/client");     
                         break;
@@ -283,6 +292,61 @@ public function new_employer () {
     }
  }
 
+  public function new_class(){
+     try{
+        
+        $db = new \Config\Tables();
+        $conn = $db->exists_table();
+
+        $id_employee = $_POST["id_employee"] ?? null;
+        $class_name = $_POST["class_name"] ?? null;
+        $days = $_POST["days"] ?? [];
+        $hours = $_POST["hours"] ?? null;
+        
+        if (empty($id_employee) || empty($class_name) || empty($hours)){
+          header('Content-Type: application/json');     
+          echo json_encode(['error' => 'All fields are required']);
+          exit();  
+        
+        } else {
+           
+           $conn->beginTransaction();
+
+           $sql = "INSERT INTO class (employee, class_name) VALUES (:id_employee, :class_name) RETURNING id_class";
+           $stmt = $conn->prepare($sql);
+           $stmt->execute([
+            ':id_employee'  => $id_employee,
+            ':class_name' => $class_name
+           ]);
+           
+
+           $new_class = $stmt->fetch(\PDO::FETCH_ASSOC);
+           $id_class = $new_class['id_class'];
+
+           $sqlSchedule = "INSERT INTO class_schedule (id_class, days, hours) VALUES (:id, :day, :hour)";
+           $stmt2 = $conn->prepare($sqlSchedule);
+
+           foreach ($days as $day) {
+            $stmt2->execute([
+                ':id'   => $id_class,
+                ':day'  => $day,   
+                ':hour' => $hours   
+            ]);
+
+            $conn->commit();
+
+            header("Location: /el_mus_culito/employee");
+            exit();
+        }
+    }
+       
+      
+     } catch (\PDOException $e){
+         error_log("Error updating roles: " . $e->getMessage());
+     }
+  }
+
+
 
   public function delete() {
     try {
@@ -352,11 +416,11 @@ public function edict(){
         $db = new \Config\Tables();
         $table_status = $db->exists_table();
         $from = $_SERVER['HTTP_REFERER'] ?? '';
-
-        if (strpos($from, 'equipment') === false) {
-        
-        $id       = $_POST['id'] ?? null;
         $role     = $_POST['role'] ?? null;
+        
+        if (strpos($from, 'equipment') === false) {
+            
+        $id       = $_POST['id'] ?? null;
         $name     = $_POST['username'] ?? null;
         $lastname = $_POST['lastname'] ?? null;
         $dni      = $_POST['dni'] ?? null;
@@ -364,8 +428,6 @@ public function edict(){
         $pass     = $_POST['password'] ?? null;
         $phone     = $_POST['phone'] ?? null;
         
-        }
-
         if (empty($name) || empty($lastname) || empty($dni) || empty($phone) || empty($email) || empty($id)) {
             
             header('Content-Type: application/json');     
@@ -374,7 +436,6 @@ public function edict(){
         
         } else {
            
-
              $stmt = $table_status->prepare("
              UPDATE people SET 
              user_name = :user_name,  
@@ -384,36 +445,76 @@ public function edict(){
              user_email = :user_email, 
              user_password = :user_password   
              WHERE id_people = :id");
+    
+             $stmt->execute([
+                ':user_name'     => $name,
+                ':user_lastname' => $lastname,
+                ':user_dni'      => $dni,
+                ':user_phone'    => $phone,
+                ':user_email'    => $email,
+                ':user_password' => $pass,
+                ':id'            => $id
+             ]);    
+         }
 
-             $stmt->bindValue(':user_name', $name);
-             $stmt->bindValue(':user_lastname', $lastname);
-             $stmt->bindValue(':user_dni', $dni);
-             $stmt->bindValue(':user_phone', $phone);
-             $stmt->bindValue(':user_email', $email);
-             $stmt->bindValue(':user_password', $pass);
-             $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
-             $stmt->execute();
-      
-           switch($role){
-                 case 'user':
-                     header("Location: /el_mus_culito/board");
-                     break;   
-             
-                 case 'employee':
-                     header("Location: /el_mus_culito/employees");
-                     break;
-                 
-                 case 'admin':    
-                     header("Location: /");
-                     break;      
-            }
+        } else {
+          
+          $id_machine  =  $_POST["id_machine"] ?? null;    
+          $machine_name = $_POST["machine_name"] ?? null;
+          $count_machine = $_POST["count_machine"] ?? null;
+          $status = $_POST["status"] ?? null;
+          
+           if (empty($status) || empty($machine_name) || empty($count_machine) || empty($id_machine)) { 
+                header('Content-Type: application/json');     
+                echo json_encode(['error' => 'Todos los campos son obligatorios.']);
+                exit();    
 
-            exit();  
-        } 
+           } else {
+                $stmt = $table_status->prepare("
+                 UPDATE machines SET 
+                 machine_name = :machine_name, 
+                 count_machine = :count_machine, 
+                 machine_status = :status
+                 WHERE id_machine = :id_machine");
+    
+                $stmt->execute([
+                   ':machine_name'  => $machine_name,
+                   ':count_machine' => $count_machine,
+                   ':status'        => $status,
+                   ':id_machine'      => $id_machine
+                ]);
+           }
+        }
         
-       } catch (\PDOException $err){
+        switch($role){
+           case 'user':
+               header("Location: /el_mus_culito/board");
+               break;   
+       
+           case 'employee':
+               header("Location: /el_mus_culito/employees");
+               break;
+           
+           case 'admin':    
+               header("Location: /el_mus_culito/equipment");
+               break;      
+      }
+
+           exit();  
+        } catch (\PDOException $err){
                echo "Error: " . $err->getMessage();
     }
   }
+  
 
+  public function edict_class(){
+    try{
+
+      
+
+
+    }catch(\PDOException $err){
+        echo "Error: " . $err->getMessage();
+    }
+  }
 }

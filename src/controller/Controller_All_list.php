@@ -11,7 +11,7 @@ class All_list {
             try {
              $db = new \Config\Tables();
              $table_status = $db->exists_table();
-             $stmt = $table_status->prepare("SELECT p.id_people, p.user_name, p.user_email, p.user_dni, p.user_lastname, p.user_phone, u.type_user FROM people p LEFT JOIN \"user\" u ON p.id_people = u.id_people WHERE u.type_user IS NOT NULL"); 
+             $stmt = $table_status->prepare("SELECT u.id_user, p.id_people, p.user_name, p.user_email, p.user_dni, p.user_lastname, p.user_phone, u.type_user FROM people p LEFT JOIN \"user\" u ON p.id_people = u.id_people WHERE u.type_user IS NOT NULL"); 
              $stmt->execute();
              $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
              return $result;
@@ -40,4 +40,36 @@ class All_list {
         }
     }
     
+
+    public function all_list_class(){
+        try{
+ 
+            $db = new \Config\Tables();
+            $conn = $db->exists_table();
+            $sql = ("SELECT 
+                c.id_class,
+                c.class_name,
+                CONCAT(p.user_name, ' ', p.user_lastname) AS coach_fullname,
+                p.user_name,
+                p.user_lastname,
+                STRING_AGG(cs.days::text, ', ' ORDER BY cs.hours) AS days,
+                STRING_AGG(TO_CHAR(cs.hours, 'HH12:MI AM'), ', ' ORDER BY cs.hours) AS hours
+            FROM class c
+            JOIN \"user\" u ON c.employee = u.id_user
+            JOIN people p ON u.id_people = p.id_people
+            JOIN class_schedule cs ON c.id_class = cs.id_class
+            GROUP BY c.id_class, c.class_name, p.user_name, p.user_lastname
+            ORDER BY MIN(cs.hours)
+        ");
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
+        catch(\PDOException $e){
+            error_log("Error en all_list_machines: " . $e->getMessage());
+            return [];
+        }
+    }
 }

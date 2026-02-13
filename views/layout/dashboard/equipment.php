@@ -53,7 +53,7 @@
                                 <th>Name Equipment</th>
                                 <th>Status</th>
                                 <th>Count</th>
-                                <th class="text-right">Actions</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                 <td class="text-right">
+                                <td class="text-right">
                                 <div class="action-buttons">
                                 <form action="" method="POST">
                                     <input type="hidden" name="id" value="<?= $row['id_machine']?>">
@@ -91,7 +91,7 @@
                                         delete
                                     </button>
                                 </form>
-                                    <a href="/el_mus_culito/edict?id=<?= $row['id_machine'] ?>" 
+                                    <a href="/el_mus_culito/equipment/edict?id=<?= $row['id_machine'] ?>" 
                                     style="background:none; border:none; color:white; cursor:pointer;"
                                      class="btn-action edit material-symbols-outlined" title="Edit">
                                         edit
@@ -112,7 +112,7 @@
             </section>
             
                <div class="action-btns table-bottom-actions">
-               <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
+               <button class="btn-outline"><span class="material-symbols-outlined">download</span><a href="/el_mus_culito/donwload/equipment">Export</a></button>
             </div>
 
 </main>                        

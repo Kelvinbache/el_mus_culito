@@ -1,0 +1,302 @@
+:root {
+    --primary: #DFFF00;
+    --background-dark: #121212;
+    --surface-dark: #1a1a1a;
+    --border-dark: #2d2d2d;
+    --text-white: #ffffff;
+    --text-slate: #94a3b8;
+    --font-main: 'Lexend', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background-dark);
+    color: var(--text-white);
+    min-height: screen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow-x: hidden;
+}
+
+.main-container {
+    min-height: 100vh;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(4px);
+    z-index: 0;
+}
+
+/* Card Principal */
+.card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 512px;
+    background-color: var(--surface-dark);
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(223, 255, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Header */
+.card-header {
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-box {
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--primary);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(223, 255, 0, 0.3);
+}
+
+.icon-main {
+    color: var(--background-dark);
+    font-weight: bold;
+    font-size: 1.875rem;
+}
+
+.brand-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: -0.025em;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-weight: bold;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--text-slate);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-close:hover {
+    color: var(--primary);
+}
+
+/* Formulario */
+.card-form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.label-neon {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+}
+
+.input-field {
+    width: 100%;
+    background-color: var(--background-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    transition: all 0.3s;
+}
+
+.neon-focus:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(223, 255, 0, 0.3);
+}
+
+/* Días de la semana */
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.day-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.day-item label {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--background-dark);
+    font-size: 0.875rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.day-item label:hover {
+    border-color: rgba(223, 255, 0, 0.5);
+}
+
+.day-checkbox:checked + label {
+    background-color: var(--primary);
+    color: var(--background-dark);
+    box-shadow: 0 0 15px rgba(223, 255, 0, 0.4);
+}
+
+.sun-label {
+    color: #ef4444;
+}
+
+/* Hora */
+.time-wrapper {
+    position: relative;
+}
+
+.time-icon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: var(--text-slate);
+    pointer-events: none;
+}
+
+/* Botones */
+.actions {
+    padding-top: 1rem;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1.25rem;
+    background-color: var(--primary);
+    color: var(--background-dark);
+    border: none;
+    font-weight: 900;
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(223, 255, 0, 0.2);
+}
+
+.btn-primary:hover {
+    transform: scale(1.02);
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}
+
+.btn-cancel {
+    width: 100%;
+    margin-top: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-slate);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-cancel:hover {
+    color: white;
+}
+
+/* Acento inferior */
+.bottom-accent {
+    height: 6px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.accent-bar {
+    height: 100%;
+    background-color: var(--primary);
+    width: 100%;
+    box-shadow: 0 0 15px rgba(223, 255, 0, 0.8);
+}
+
+/* Decoraciones */
+.bg-decoration-text {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 2.5rem;
+    opacity: 0.05;
+    font-size: 12rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bg-decoration-icon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 2.5rem;
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bg-decoration-icon span {
+    font-size: 20rem;
+    color: var(--primary);
+    transform: rotate(-12deg);
+}
