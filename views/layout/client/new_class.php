@@ -73,9 +73,16 @@
                             </td>
                             <td class="text-right">
                                 <div class="action-buttons">
-                                    <button class="btn-add">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </button>
+                                    <form action="/el_mus_culito/client/new_class" method="POST" style="display:inline;">
+                                       
+                                        <input type="hidden" name="user_id" value="<?php echo $id; ?>">
+                                        <input type="hidden" name="id_class" value="<?php echo $row['id_class_schedule']; ?>">
+                                        
+                                        <button type="submit" class="btn-add" title="Inscribirme en esta clase">
+                                            <span class="material-symbols-outlined">add</span>
+                                        </button>
+                                    
+                                    </form>
                                 </div>
                             </td>
                         </tr>               
@@ -88,7 +95,6 @@
                             <?php endif; ?>
                     </tbody>
                 </table>
-                
             </div>
         </div>
     </main>

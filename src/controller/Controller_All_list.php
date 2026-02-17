@@ -46,20 +46,21 @@ class All_list {
  
             $db = new \Config\Tables();
             $conn = $db->exists_table();
-            $sql = ("SELECT 
+            $sql = ("
+                SELECT
+                cs.id_class_schedule, 
                 c.id_class,
                 c.class_name,
-                CONCAT(p.user_name, ' ', p.user_lastname) AS coach_fullname,
                 p.user_name,
                 p.user_lastname,
-                STRING_AGG(cs.days::text, ', ' ORDER BY cs.hours) AS days,
-                STRING_AGG(TO_CHAR(cs.hours, 'HH12:MI AM'), ', ' ORDER BY cs.hours) AS hours
+                cs.days::text AS days, 
+                TO_CHAR(cs.hours, 'HH12:MI AM') AS hours 
             FROM class c
             JOIN \"user\" u ON c.employee = u.id_user
             JOIN people p ON u.id_people = p.id_people
             JOIN class_schedule cs ON c.id_class = cs.id_class
-            GROUP BY c.id_class, c.class_name, p.user_name, p.user_lastname
-            ORDER BY MIN(cs.hours)
+            GROUP BY cs.id_class_schedule, c.id_class, c.class_name, p.user_name, p.user_lastname
+            ORDER BY cs.hours;
         ");
             $stmt = $conn->prepare($sql);
             $stmt->execute();
@@ -72,4 +73,79 @@ class All_list {
             return [];
         }
     }
+
+   public function all_list_client(){
+     try {
+      
+     $db = new \Config\Tables();
+     $conn = $db->exists_table();   
+    
+    $sql = ("SELECT
+            u_cli.id_people,  
+            a.id_attendance,
+            p_cli.user_name,
+            p_cli.user_lastname,
+            p_cli.user_email,
+            c.class_name,
+            cs.days,
+            TO_CHAR(a.check_in_time, 'HH12:MI AM') AS hours
+        FROM attendance a
+        JOIN \"user\" u_cli ON a.id_user = u_cli.id_user
+        JOIN people p_cli ON u_cli.id_people = p_cli.id_people
+        JOIN class_schedule cs ON a.id_class = cs.id_class_schedule
+        JOIN class c ON cs.id_class = c.id_class
+        ORDER BY a.check_in_time DESC;
+    ");
+
+     $stmt = $conn->prepare($sql);
+     $stmt->execute();
+     $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+     return $result;
+
+     }
+     
+     catch(\PDOException $err){
+          error_log("Error en all_list_machines: " . $err->getMessage());
+          return [];
+     }
+   }
+   
+   public function list_class_client($data){
+      extract($data);
+
+    try {
+      
+     $db = new \Config\Tables();
+     $conn = $db->exists_table();   
+    
+    $sql = ("SELECT 
+            c.class_name,
+            p.user_name,
+            p.user_email,
+            cs.days::text,
+            TO_CHAR(cs.hours, 'HH12:MI AM') AS hours,
+            TO_CHAR(a.check_in_time, 'DD/MM/YYYY') 
+        FROM attendance a
+        JOIN class_schedule cs ON a.id_class = cs.id_class_schedule
+        JOIN class c ON cs.id_class = c.id_class
+        JOIN \"user\" u ON c.employee = u.id_user
+        JOIN people p ON u.id_people = p.id_people
+        WHERE a.id_user = :id_user;
+    ");
+
+     $stmt = $conn->prepare($sql);
+     $stmt->execute([
+        ':id_user' => $id
+     ]
+     );
+     $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+     return $result;
+
+     }
+     
+     catch(\PDOException $err){
+          error_log("Error en all_list_machines: " . $err->getMessage());
+          return [];
+     }
+   }
 }

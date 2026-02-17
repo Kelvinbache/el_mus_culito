@@ -48,7 +48,7 @@ require_once __DIR__ . $PATH . "nav/nav_board_user.php";
                 </div>
             </section>
 
-              <?php  require_once __DIR__ . $PATH . "table/table_employees.php"?>
+              <?php  require_once __DIR__ . $PATH . "table/table_list_client.php"?>
              
         <div class="action-btns table-bottom-actions">
                <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>

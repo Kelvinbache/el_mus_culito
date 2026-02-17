@@ -18,6 +18,8 @@ class LoginController extends Controller {
         $data["user"] = $all_list->all_list_user();
         $data["machine"] = $all_list->all_list_machines();
         $data["class"] = $all_list->all_list_class();
+        $data["client"] = $all_list->all_list_client();
+        $data["list_class_client"] = $all_list->list_class_client($data);
 
         switch($url) {
             
@@ -343,6 +345,37 @@ public function new_employer () {
       
      } catch (\PDOException $e){
          error_log("Error updating roles: " . $e->getMessage());
+     }
+  }
+
+  public function Select_Class(){
+     try {
+    
+   
+    if (!isset($_POST['user_id']) || !isset($_POST['id_class'])) {
+        header("Location: /el_mus_culito/client/classes?error= " . $_POST['user_id']);
+        exit();
+    }
+     
+    $db = new \Config\Tables();
+        $conn = $db->exists_table();
+        $id_user = $_POST['user_id'];
+        $id_schedule = $_POST['id_class'];
+
+        $sql = "INSERT INTO attendance (id_user, id_class) VALUES (:user, :class)";
+        $stmt = $conn->prepare($sql);
+        
+        $stmt->execute([
+            ':user' => $id_user,
+            ':class' => $id_schedule
+        ]);
+        
+        header("Location: /el_mus_culito/client");
+        exit();
+
+
+    } catch(\PDOException $err) {
+        error_log("Error updating roles: " . $err->getMessage());
      }
   }
 

@@ -31,8 +31,7 @@ $router->router("POST",'/client', $login);
 
 
 $router->router("GET", '/client/new_class', $login);
-$router->router("POST",'/client/new_class', $login);
-
+$router->router("POST",'/client/new_class', [$login, 'Select_Class']);
 
 $router->router("GET",  '/user', $login);
 $router->router("POST", '/user', $login);
@@ -78,3 +77,17 @@ $router->router("GET",  '/donwload/equipment',[$download, 'pdf_machines']);
 
 
 $router->run();
+
+
+
+// Falta, 
+// Cambiar el idioma
+// Poner en los edictores Que puedan cambiar una tabla espedica, como la hora, el dia, 
+// errores, un empleado no puede ver la lista de otro
+// Falta el boton para sali
+// Falta la funcion para borrar o suspenderla
+// Falta la funcion para 
+// Falta cambiar el conteo de empleados, clientes y maquinas
+// lo mismo para los clientes y empleados
+// Falta crea el filtro para las busquedas 
+// Falta poder poner los permisos de edicion, acceso 

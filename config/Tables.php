@@ -39,6 +39,7 @@ class Tables {
   public function create_tables(){
     try {
        $sql = "
+
        create type user_type as enum('user', 'employee', 'admin');
        
        create type machine_status as enum('operational', 'not operational');
@@ -129,7 +130,11 @@ class Tables {
          id_attendance serial primary key,
          id_user int references \"user\" (id_user),
          check_in_time timestamp default current_timestamp not null
-       );";
+       );
+       
+       ALTER TABLE attendance 
+       ADD COLUMN id_class int REFERENCES class_schedule (id_class_schedule) ON DELETE SET NULL;
+       ";
 
        $this->db->exec($sql);
        return "exict in create tables";

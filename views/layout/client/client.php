@@ -46,66 +46,7 @@ require_once __DIR__ . $PATH . "headers/permissions_header.php";
                 </div>
             </section>
 
-            <section class="table-container">
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Coach</th>
-                                <th>Class</th>
-                                <th>Hours</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($user)): ?>
-                            <?php foreach ($user as $row): ?>
-                            <tr>
-                                <td>
-                                    <div class="client-cell">
-                                        <div class="avatar-small" style="background-image: url('https://ui-avatars.com/api/?name=<?php echo urlencode($row['user_name']); ?>&background=13ec5b&color=0d1b12');"></div>
-                                        <div>
-                                            <p class="name"><?php echo htmlspecialchars($row['user_name'])?></p>
-                                            <p class="email"><?php echo htmlspecialchars($row['user_email'])?></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="client-cell">
-                                        <div>
-                                            <p>YOGA</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="client-cell">
-                                        <div>
-                                             <p><spam>10AM-12PM</spam></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="client-cell">
-                                        <div>
-                                            <Button class="material-symbols-outlined">Delete</Button>
-                                            <Button class="material-symbols-outlined">Edit</Button>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                            <?php else: ?>
-                            <tr>
-                            <td colspan="5" class="text-center">No se encontraron usuarios con roles asignados.</td>
-                            </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>  
-          <div class="action-btns table-bottom-actions">
-               <button class="btn-outline"><span class="material-symbols-outlined">download</span> Export</button>
-        </div>
+            <?php  require_once __DIR__ . $PATH . "table/table_list_class.php"?>
 </main>    
 
 <?php require_once __DIR__ . $PATH . "footers/footer_of_board.php" ?>
