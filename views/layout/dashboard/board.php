@@ -5,6 +5,15 @@ require_once __DIR__ . $PATH . "headers/header_of_board.php";
 require_once __DIR__ . $PATH . "headers/permissions_header.php";
 require_once __DIR__ . $PATH . "nav/nav_board.php"; 
 
+$total = null;
+
+if(!empty($user)):
+    foreach($user as $row):
+    $total = $row["total_clients"]; 
+    endforeach; 
+endif;
+
+
 ?>
 
 <main class="main-content container-xl">
@@ -22,7 +31,9 @@ require_once __DIR__ . $PATH . "nav/nav_board.php";
                         <span class="material-symbols-outlined">groups</span>
                     </div>
                     <div class="stat-body">
-                        <p class="stat-number">1,248</p>
+                        <p class="stat-number">
+                            <?php echo htmlspecialchars($total)?>
+                        </p>
                         <p class="stat-trend">
                             <span class="material-symbols-outlined">trending_up</span> 12%
                         </p>
@@ -39,11 +50,6 @@ require_once __DIR__ . $PATH . "nav/nav_board.php";
                         <div class="action-btns">
                             <button class="btn-outline"><span class="material-symbols-outlined">filter_list</span> Filter</button>
                         </div>
-                    </div>
-                    <div class="active-tags">
-                        <button class="tag tag-active">All Clients</button>
-                        <button class="tag">Membership: Premium <span class="material-symbols-outlined">close</span></button>
-                        <button class="tag">Status: Active <span class="material-symbols-outlined">close</span></button>
                     </div>
                 </div>
             </section>

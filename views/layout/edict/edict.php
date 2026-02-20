@@ -27,8 +27,8 @@ if (!empty($user) && $id_edict) {
             </div>
             
             <header class="form-header">
-                <h1>Registro de Empleado</h1>
-                <p>Ingrese los detalles personales, contractuales y de acceso.</p>
+                <h1>Employee Registration</h1>
+                <p>Enter your personal, contractual, and access details.</p>
             </header>
                
                 <?php if($target_user): ?>  
@@ -39,47 +39,47 @@ if (!empty($user) && $id_edict) {
 
 
                 <div class="form-group">
-                    <label>Nombre</label>
+                    <label>Name</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">person</span>
-                        <input type="text" id="username" name="username" value="<?= $target_user['user_name']?>" class="form-input" placeholder="Nombre de usuario" required>
+                        <input type="text" id="username" name="username" value="<?= $target_user['user_name']?>" class="form-input" placeholder="User name" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Apellido</label>
+                    <label>Last name</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">person</span>
-                        <input type="text" id="lastname" name="lastname" value="<?= $target_user['user_lastname']?>" class="form-input" placeholder="Apellido" required>                    
+                        <input type="text" id="lastname" name="lastname" value="<?= $target_user['user_lastname']?>" class="form-input" placeholder="Last name" required>                    
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Cédula</label>
+                    <label>ID</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">id_card</span>
-                        <input type="text" id="Cedula" name="dni" value="<?= $target_user['user_dni']?>" class="form-input" placeholder="Cedula" required>
+                        <input type="text" id="Cedula" name="dni" value="<?= $target_user['user_dni']?>" class="form-input" placeholder="ID" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Teléfono</label>
+                    <label>Phone</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">call</span>
-                        <input type="text" id="Phone" name="phone" value="<?= $target_user['user_phone']?>" class="form-input" placeholder="Telefono" required>
+                        <input type="text" id="Phone" name="phone" value="<?= $target_user['user_phone']?>" class="form-input" placeholder="Phone" required>
                     </div>
                 </div>
 
                 <div class="form-group full-width">
-                    <label>Correo Electrónico</label>
+                    <label>Email</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">mail</span>
-                        <input type="email" id="email" name="email" class="form-input" value="<?= $target_user['user_email']?>" placeholder="Correo electrónico" required>
+                        <input type="email" id="email" name="email" class="form-input" value="<?= $target_user['user_email']?>" placeholder="Email" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Contraseña</label>
+                    <label>Password</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">lock</span>
                         <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>
@@ -87,7 +87,7 @@ if (!empty($user) && $id_edict) {
                 </div>
 
                 <div class="form-group">
-                    <label>Confirmar Contraseña</label>
+                    <label>Confirm Password</label>
                     <div class="input-wrapper">
                         <span class="material-symbols-outlined">lock_reset</span>
                         <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>

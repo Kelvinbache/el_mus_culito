@@ -27,8 +27,7 @@ $router->router("POST",'/board', [$login, 'delete']);
 
 // users 
 $router->router("GET", '/client', $login);
-$router->router("POST",'/client', $login);
-
+$router->router("POST",'/client', [$login, 'delete']);
 
 $router->router("GET", '/client/new_class', $login);
 $router->router("POST",'/client/new_class', [$login, 'Select_Class']);
@@ -44,10 +43,17 @@ $router->router("GET", '/employees/new_employee', $login);
 $router->router("POST",'/employees/new_employee',[$login, 'new_employer']);
 
 $router->router("GET", '/employee', $login);
-$router->router("POST",'/employee', $login);
+$router->router("POST",'/employee', [$login, 'delete']);
 
 $router->router("GET", '/employee/new_class', $login);
 $router->router("POST",'/employee/new_class', [$login,'new_class']);
+
+
+$router->router("GET", '/employee/edict', $login);
+$router->router("POST",'/employee/edict', [$login, 'edict_class']);
+
+
+
 
 // equipment
 $router->router("GET",   '/equipment', $login);
@@ -83,11 +89,8 @@ $router->run();
 // Falta, 
 // Cambiar el idioma
 // Poner en los edictores Que puedan cambiar una tabla espedica, como la hora, el dia, 
-// errores, un empleado no puede ver la lista de otro
-// Falta el boton para sali
 // Falta la funcion para borrar o suspenderla
 // Falta la funcion para 
-// Falta cambiar el conteo de empleados, clientes y maquinas
 // lo mismo para los clientes y empleados
 // Falta crea el filtro para las busquedas 
 // Falta poder poner los permisos de edicion, acceso 

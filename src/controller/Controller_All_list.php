@@ -11,7 +11,21 @@ class All_list {
             try {
              $db = new \Config\Tables();
              $table_status = $db->exists_table();
-             $stmt = $table_status->prepare("SELECT u.id_user, p.id_people, p.user_name, p.user_email, p.user_dni, p.user_lastname, p.user_phone, u.type_user FROM people p LEFT JOIN \"user\" u ON p.id_people = u.id_people WHERE u.type_user IS NOT NULL"); 
+             $stmt = $table_status->prepare("SELECT 
+             u.id_user, 
+             p.id_people, 
+             p.user_name, 
+             p.user_email, 
+             p.user_dni,
+             p.user_lastname, 
+             p.user_phone, 
+             u.type_user, 
+
+             (SELECT COUNT(DISTINCT u2.id_user) FROM \"user\" u2 WHERE u2.type_user = 'user') AS total_clients,
+
+             (SELECT COUNT(*) FROM \"user\" WHERE type_user IN ('employee')) AS total
+
+             FROM people p LEFT JOIN \"user\" u ON p.id_people = u.id_people WHERE u.type_user IS NOT NULL"); 
              $stmt->execute();
              $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
              return $result;
@@ -27,7 +41,7 @@ class All_list {
         try{
             $db = new \Config\Tables();
             $conn = $db->exists_table();
-            $sql= ("SELECT id_machine, machine_name, machine_status, count_machine FROM machines;");
+            $sql= ("SELECT id_machine, machine_name, machine_status, count_machine, COUNT(*) OVER() AS total FROM machines;");
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -46,8 +60,7 @@ class All_list {
  
             $db = new \Config\Tables();
             $conn = $db->exists_table();
-            $sql = ("
-                SELECT
+            $sql = ("SELECT
                 cs.id_class_schedule, 
                 c.id_class,
                 c.class_name,
@@ -74,31 +87,37 @@ class All_list {
         }
     }
 
-   public function all_list_client(){
+   public function all_list_client($data){
+    extract($data);
+
      try {
       
      $db = new \Config\Tables();
      $conn = $db->exists_table();   
     
     $sql = ("SELECT
+            cs.id_class, 
             u_cli.id_people,  
             a.id_attendance,
             p_cli.user_name,
             p_cli.user_lastname,
             p_cli.user_email,
             c.class_name,
-            cs.days,
+            cs.days::text,
+            COUNT(*) OVER() AS total,
             TO_CHAR(a.check_in_time, 'HH12:MI AM') AS hours
         FROM attendance a
         JOIN \"user\" u_cli ON a.id_user = u_cli.id_user
         JOIN people p_cli ON u_cli.id_people = p_cli.id_people
         JOIN class_schedule cs ON a.id_class = cs.id_class_schedule
         JOIN class c ON cs.id_class = c.id_class
+        WHERE c.employee = ?
         ORDER BY a.check_in_time DESC;
     ");
 
      $stmt = $conn->prepare($sql);
-     $stmt->execute();
+     $stmt->execute([$id]);
+
      $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
      return $result;
 
@@ -118,13 +137,16 @@ class All_list {
      $db = new \Config\Tables();
      $conn = $db->exists_table();   
     
-    $sql = ("SELECT 
+    $sql = ("SELECT
+            a.id_class,
+            a.id_user, 
             c.class_name,
             p.user_name,
             p.user_email,
             cs.days::text,
             TO_CHAR(cs.hours, 'HH12:MI AM') AS hours,
-            TO_CHAR(a.check_in_time, 'DD/MM/YYYY') 
+            TO_CHAR(a.check_in_time, 'DD/MM/YYYY'),
+            (SELECT COUNT(*) FROM attendance a2 WHERE a2.id_user = :id_user) AS total 
         FROM attendance a
         JOIN class_schedule cs ON a.id_class = cs.id_class_schedule
         JOIN class c ON cs.id_class = c.id_class

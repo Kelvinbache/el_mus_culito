@@ -1,3 +1,30 @@
+<?php 
+
+$id_edict = $_GET['id'] ?? null; 
+$target = null;
+
+    if(!empty($class) && $id_edict){
+        foreach($class as $row) {      
+           if ($row["id_class_schedule"] == $id_edict){
+              $target = $row;
+              break;
+           } 
+        }
+    } 
+
+    $days = [
+            'Monday'    => ['id' => 'mon', 'label' => 'L'],
+            'Tuesday'   => ['id' => 'tue', 'label' => 'M'],
+            'Wednesday' => ['id' => 'wed', 'label' => 'X'],
+            'Thursday'  => ['id' => 'thu', 'label' => 'J'],
+            'Friday'    => ['id' => 'fri', 'label' => 'V'],
+            'Saturday'  => ['id' => 'sat', 'label' => 'S'],
+            'Sunday'    => ['id' => 'sun', 'label' => 'D']
+        ];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,54 +58,44 @@
                 </a>
             </button>
         </div>
-
-        <form method="POST" action="/el_mus_culito/employee/new_class" class="card-form">
-            
-         <input type="hidden" name="id_employee" value="<?= $id ?? '' ?>">
+        
+        <form method="POST" action="/el_mus_culito/employee/edict" class="card-form">
+         <input type="hidden" name  ="id_class" value="<?= $target["id_class_schedule"] ?? '' ?>"> 
+         <input type="hidden" name  ="id_class" value="<?= $target["id_class"] ?? '' ?>">
             
            <div class="input-group">
                 <label class="label-neon">class name</label>
-                <input class="input-field neon-focus" name="class_name" placeholder="Ej: Crossfit, Zumba, Powerlifting" required type="text"/>
+                <input class="input-field neon-focus" name="class_name" value="<?=$target['class_name']?>" placeholder="Ej: Crossfit, Zumba, Powerlifting" required type="text"/>
             </div>
 
             <div class="input-group">
                 <label class="label-neon">Class days</label>
                 <div class="days-grid">
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Monday" id="mon" type="checkbox"/>
-                        <label for="mon">L</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Tuesday" id="tue" value="Tuesday" type="checkbox"/>
-                        <label for="tue">M</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Wednesday" id="wed" type="checkbox"/>
-                        <label for="wed">X</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Thursday" id="thu" type="checkbox"/>
-                        <label for="thu">J</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Friday" id="fri" type="checkbox"/>
-                        <label for="fri">V</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Saturday" id="sat" type="checkbox"/>
-                        <label for="sat">S</label>
-                    </div>
-                    <div class="day-item">
-                        <input class="sr-only day-checkbox" name="days[]" value="Sunday" id="sun" type="checkbox"/>
-                        <label class="sun-label" for="sun">D</label>
-                    </div>
+                <?php foreach ($days as $valor_db => $info): ?>
+                <?php $is_checked = (isset($target['days']) && $target['days'] === $valor_db) ? 'checked' : '';?>
+            <div class="day-item">  
+                <input class="sr-only day-checkbox" 
+                       name="days[]" 
+                       value="<?= $valor_db ?>" 
+                       id="<?= $info['id'] ?>" 
+                       type="checkbox" 
+                       <?= $is_checked ?> />
+                <label for="<?= $info['id'] ?>"><?= $info['label'] ?></label>
+            </div>
+        <?php endforeach; ?>
                 </div>
             </div>
 
             <div class="input-group">
                 <label class="label-neon">Hour</label>
                 <div class="time-wrapper">
-                    <input class="input-field neon-focus" name="hours" required type="time"/>
+                 <?php 
+                    $hours= "";
+                    if (!empty($target['hours'])) {
+                   $hours = date("H:i", strtotime($target['hours']));
+                }
+        ?>
+                    <input class="input-field neon-focus" name="hours" value="<?= $hours ?>" required type="time"/>
                     <span class="material-icons time-icon">schedule</span>
                 </div>
             </div>

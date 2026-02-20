@@ -20,7 +20,7 @@ if (!empty($machine) && $id_edict) {
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>El Mus-culito - Gestión de Equipo</title>
+    <title>El Mus-culito Inventory</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -36,7 +36,7 @@ if (!empty($machine) && $id_edict) {
             <div class="icon-box">
                 <span class="material-symbols-outlined">fitness_center</span>
             </div>
-            <h1>Nuevo Equipo</h1>
+            <h1>New Team</h1>
             <p class="subtitle">El Mus-culito Inventory</p>
         </div>
 
@@ -46,7 +46,7 @@ if (!empty($machine) && $id_edict) {
             <input type="hidden" name="role" value="<?= $role ?>">
 
             <div class="space-y-2">
-                <label>Nombre</label>
+                <label>Name</label>
                 <input class="input-field" name="machine_name" value="<?= $target_machine ["machine_name"] ?>" placeholder="Ej. Mancuernas Pro" type="text" required/>
             </div>
 
@@ -56,7 +56,7 @@ if (!empty($machine) && $id_edict) {
                     <input class="input-field" name="count_machine" type="number" value="<?= trim($target_machine["count_machine"]) ?>" require/>
                 </div>
                 <div class="space-y-2">
-                    <label>Estado</label>
+                    <label>State</label>
                     <select class="select-field" name="status">
                         <option value='operational'>operational</option>
                         <option value="not operational">not operational</option>
@@ -66,11 +66,11 @@ if (!empty($machine) && $id_edict) {
 
             <div class="actions">
                 <button class="btn-submit" type="submit">
-                    Guardar Equipo
+                    Save
                 </button>
                 <button class="btn-discard" type="button">
                     <a href="/el_mus_culito/equipment">
-                    Descartar
+                    Rule out
                     </a>
                 </button>
             </div>

@@ -242,4 +242,6 @@ h1, h2, h3, h4, .logo-text, .btn-cta, .btn-primary, .btn-secondary, .btn-dark {
 .btn-dark {
     background: var(--bg-dark); color: var(--primary);
     padding: 1.2rem 2.5rem; border: none; cursor: pointer;
+    text-decoration: none;
 }
+

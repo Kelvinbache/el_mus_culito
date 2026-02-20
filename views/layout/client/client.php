@@ -2,6 +2,18 @@
 $PATH = "./../";
 require_once __DIR__ . $PATH . "headers/header_of_board.php";
 require_once __DIR__ . $PATH . "headers/permissions_header.php";
+require_once __DIR__ . $PATH . "nav/nav_board_user.php";
+
+
+$total = null;
+
+if(!empty($list_class_client)):
+    foreach($list_class_client as $row): 
+    $total = $row["total"]; 
+    endforeach; 
+endif;
+
+
 ?>
 
 <main class="main-content container-xl">
@@ -25,7 +37,8 @@ require_once __DIR__ . $PATH . "headers/permissions_header.php";
                         <span class="material-symbols-outlined">groups</span>
                     </div>
                     <div class="stat-body">
-                        <p class="stat-number">1,248</p>
+                        <p class="stat-number">
+                        <?php echo htmlspecialchars($total)?>    
                         <p class="stat-trend">
                             <span class="material-symbols-outlined">trending_up</span> 12%
                         </p>

@@ -1,5 +1,12 @@
-<?php $PATH = "./../";?>
+<?php $PATH = "./../";
 
+if(!empty($user)):
+    foreach($user as $row):
+    $total = $row["total"]; 
+    endforeach; 
+endif;
+
+?>
 
 <main class="main-content container-xl">
     <section class="page-header">
@@ -20,7 +27,9 @@
                         <span class="material-symbols-outlined">groups</span>
                     </div>
                     <div class="stat-body">
-                        <p class="stat-number">1,248</p>
+                        <p class="stat-number">
+                        <?php echo htmlspecialchars($total)?>        
+                        </p>
                         <p class="stat-trend">
                             <span class="material-symbols-outlined">trending_up</span> 12%
                         </p>

@@ -59,7 +59,11 @@ abstract class Controller {
 
             case '/employee/new_class':
             include $viewPath;
-            break;    
+            break;
+            
+            case '/employee/edict':
+            include $viewPath;
+            break; 
 
             case '/edict/edict':
             include $viewPath;

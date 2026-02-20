@@ -73,17 +73,12 @@
                                 <td>
                                 <div class="action-buttons">
                                 <form action="" method="POST">
-                                    <input type="hidden" name="id" value="<?= $row['id_people']?>">
-                                    <input type="hidden" name="role" value="<?= $row['type_user']?>">
+                                    <input type="hidden" name="id" value="<?= $row['id_user']?>">
+                                    <input type="hidden" name="id_class" value="<?= $row['id_class']?>">
                                     <button type="submit" class="material-symbols-outlined" style="background:none; border:none; color:red; cursor:pointer;">
                                         delete
                                     </button>
                                 </form>
-                                    <a href="/el_mus_culito/edict?id=<?= $row['id_people'] ?>" 
-                                    style="background:none; border:none; color:white; cursor:pointer;"
-                                     class="btn-action edit material-symbols-outlined" title="Edit">
-                                        edit
-                                    </a>
                                 </div>
                             </td>
                             </tr>

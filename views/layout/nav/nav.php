@@ -8,10 +8,10 @@
             </div>
             
             <nav class="main-nav">
-                <a href="#">Home</a>
-                <a href="#">The Method</a>
-                <a href="#">Features</a>
-                <a href="#">Success Stories</a>
+                <a href="#" style="text-decoration: none; color:white">Home</a>
+                <a href="#" style="text-decoration: none; color:white">The Method</a>
+                <a href="#" style="text-decoration: none; color:white">Features</a>
+                <a href="#" style="text-decoration: none; color:white">Success Stories</a>
             </nav>
             
             <div class="header-actions">

@@ -12,6 +12,5 @@
             </div>
         </footer>
     </div>
-    <script src="http://localhost/el_mus_culito/public/js/delete.js"></script>
 </body>
 </html>

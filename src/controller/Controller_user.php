@@ -18,7 +18,7 @@ class LoginController extends Controller {
         $data["user"] = $all_list->all_list_user();
         $data["machine"] = $all_list->all_list_machines();
         $data["class"] = $all_list->all_list_class();
-        $data["client"] = $all_list->all_list_client();
+        $data["client"] = $all_list->all_list_client($data);
         $data["list_class_client"] = $all_list->list_class_client($data);
 
         switch($url) {
@@ -45,6 +45,9 @@ class LoginController extends Controller {
           
            case($url === "/employee/new_class"):   
             break;
+
+            case($url === "/employee/edict_class"):   
+            break;
             
           case($url === "/edict"):
              $PATH = "/edict";
@@ -70,11 +73,14 @@ class LoginController extends Controller {
 
 
     public function authenticate() {
-       try{   
-    
+        header('Content-Type: application/json');
+       
+        try{   
+           
        $db = new \Config\Tables();
        $user = $_POST['username'];
        $pass = $_POST['password'];
+       $location = "";
       
 
        if (empty($user) || empty($pass)) {
@@ -101,35 +107,61 @@ class LoginController extends Controller {
             ];
           
             session_write_close();
+
+            if (!$new_user || !isset($new_user["type_user"])) {
+             echo json_encode([ "status" => "error", "message" => "User account not found or invalid."]);
+             exit();
+}
+
+switch($new_user["type_user"]) {
+       case "user": 
+            $location = "/el_mus_culito/client";     
+            break;
+        
+        case "employee":
+            $location = "/el_mus_culito/employee";
+            break;
             
-            switch($new_user["type_user"]) {
-                    case "user": 
-                        header("Location: /el_mus_culito/client");     
-                        break;
-
-                    case "employee":
-                        header("Location: /el_mus_culito/employee");
-                        break;
-                    
-                    case "admin": 
-                        header("Location: /el_mus_culito/board"); 
-                        break;
-
-                    default:
-                       echo ("client not found");   
-            }
+        case "admin": 
+            $location = "/el_mus_culito/board"; 
+            break;
         }
+                
+        echo json_encode([ 
+                    "status" => "success", 
+                    "message" => "User registered successfully",
+                    "location" => $location
+                ]);
+                
+                exit();
+}
 
        } catch (\PDOException $err) {
-          echo $err;
+
+           header('Content-Type: application/json');
+           $sqlState = $err->getCode();
+           $message = " ";
+        
+        if ($sqlState == '42P01') {
+            $message = "System error: Login table not found.";
+     
+            } else {
+             $message = "An unexpected error occurred during login.";
+
+        }   
+            exit();
+            echo json_encode([ "status" => "error", "message" => $message, "code" => $sqlState]);
     }
-}      
+  }
+      
 
     
     public function sing_up() {
-        try {
-
         $db = new \Config\Tables();
+        $table_status = $db->exists_table();
+
+        try {
+            
         $name = $_POST['username'];
         $lastname = $_POST['lastname'];
         $dni = $_POST['Cedula'];
@@ -142,8 +174,8 @@ class LoginController extends Controller {
        
             } else {
              
-
-             $table_status = $db->exists_table();
+             $table_status->beginTransaction();
+             
              $stmt = $table_status->prepare("INSERT INTO people (user_name, user_lastname, user_dni, user_phone, user_email, user_password) VALUES (:user_name, :user_lastname, :user_dni, :user_phone, :user_email, :user_password) RETURNING id_people");
              $stmt->bindParam(':user_name', $name);
              $stmt->bindParam(':user_lastname', $lastname);
@@ -160,15 +192,46 @@ class LoginController extends Controller {
              $stmt = $table_status->prepare("INSERT INTO \"user\" (id_people) values(:id_people)");
              $stmt->bindParam(':id_people', $id_new_person);  
              $stmt->execute();
-             
-             header("Location: /el_mus_culito/user");    
+
+             $table_status->commit();
+
+             echo json_encode([ 
+                    "status" => "success", 
+                    "message" => "User registered successfully",
+                    "location" => "/el_mus_culito/user"
+                ]);
+                
+             exit();    
              
         } 
       
        } catch (\PDOException $err){
-               echo $err;
-    };
-        
+       
+        if ($table_status->inTransaction()) {
+            $table_status->rollBack();
+        }
+
+
+       $sqlState = $err->getCode();
+       header('Content-Type: application/json');
+
+        if ($sqlState == '23505') {
+            echo json_encode([ 
+                "status" => "error", 
+                "message" => "User or email already exists.", 
+                "code" => $sqlState
+            ]);
+
+            } else {
+            echo json_encode([ 
+                "status" => "error", 
+                "message" => "Internal database error", 
+                "code" => $sqlState
+            ]);
+        }
+
+        exit();
+    }        
   }
 
 public function new_employer () {
@@ -213,8 +276,8 @@ public function new_employer () {
       
        } catch (\PDOException $err){
                echo $err;
-    };
-        
+    }
+
   }
   
   public function update_permission(){
@@ -385,16 +448,42 @@ public function new_employer () {
     try {
     
     $id = $_POST['id'] ?? null;
+    $id_class = $_POST["id_class"] ?? null; 
     $role = $_POST['role'] ?? null;
     $from = $_SERVER['HTTP_REFERER'] ?? '';
     
 
-   if (isset($id) && intval($id)){   
+   if (isset($id) && intval($id) || isset($id_class) && intval($id_class) ){   
        
        $db = new \Config\Tables();
        $conn = $db->exists_table();
        
-       if (strpos($from, 'equipment') === false) {
+       if(strpos($from, 'employee') === false){
+          
+        $stmt = $conn->prepare("DELETE FROM attendance WHERE id_user = :id AND id_class = :id_class");
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stmt->bindValue(':id_class', $id_class, \PDO::PARAM_INT);
+        $stmt->execute();
+ 
+        header("Location: /el_mus_culito/client");
+
+       } else {
+       
+          $stmt = $conn->prepare("DELETE FROM class_schedule WHERE id_class = :id");
+          $stmt->bindValue(':id', $id_class, \PDO::PARAM_INT);
+          $stmt->execute();
+ 
+          $stmt = $conn->prepare("DELETE FROM class WHERE id_class = :id");           
+          $stmt->bindValue(':id', $id_class, \PDO::PARAM_INT); 
+          $stmt->execute();
+
+          header("Location: /el_mus_culito/employee");    
+
+       } 
+       
+       
+       
+       if  (strpos($from, 'equipment') === false) {
 
           $stmtUser = $conn->prepare("DELETE FROM \"user\" WHERE id_people = :id");
           $stmtUser->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -405,13 +494,13 @@ public function new_employer () {
           $stmt->execute();
        
         } else {
-       
+    
           $stmtUser = $conn->prepare("DELETE FROM machines WHERE id_machine= :id");
           $stmtUser->bindValue(':id', $id, \PDO::PARAM_INT);
           $stmtUser->execute();
         
         }
-       
+        
         switch($role){
             case 'user':
                 header("Location: /el_mus_culito/board");
@@ -543,9 +632,39 @@ public function edict(){
   public function edict_class(){
     try{
 
+     $db = new \Config\Tables();
+     $table_status = $db->exists_table();
+     $id_class_schedule = $_POST['id_class_schedule'] ?? null;
+     $id_class = $_POST['id_class'] ?? null;
+     $class_name = $_POST['class_name'] ?? null;
+     $days = (isset($_POST['days']) && is_array($_POST['days'])) ? $_POST['days'][0] : null;
+     $hours = $_POST["hours"] ?? null;
+     
+     if (empty($id_class) || empty($class_name) || empty($hours)) { 
+            header('Content-Type: application/json');     
+            echo json_encode(['error' => 'Todos los campos son obligatorios.']);
+            exit(); 
+     }
+
+     $stmt = $table_status->prepare("UPDATE class SET class_name = :class_name WHERE id_class = :id_class");
+    
+      $stmt->execute([
+        ":class_name" => $class_name,
+        ":id_class" => $id_class
+      ]);
       
-
-
+     $stmt = $table_status->prepare("UPDATE class_schedule SET days = :days , hours = :hours  WHERE id_class_schedule = :id_class_schedule");
+    
+     $stmt->execute([
+         ":days" => $days,
+         ":hours" => $hours,
+         ":id_class_schedule" => $id_class_schedule
+      ]);
+      
+      header("Location: /el_mus_culito/employee");
+      exit();
+    
+                
     }catch(\PDOException $err){
         echo "Error: " . $err->getMessage();
     }

@@ -19,7 +19,7 @@
             <div class="icon-box">
                 <span class="material-symbols-outlined">fitness_center</span>
             </div>
-            <h1>Nuevo Equipo</h1>
+            <h1>New Team</h1>
             <p class="subtitle">El Mus-culito Inventory</p>
         </div>
 
@@ -28,7 +28,7 @@
             <input type="hidden" name="admin_id" value="<?= $id ?? '' ?>">
 
             <div class="space-y-2">
-                <label>Nombre</label>
+                <label>Name</label>
                 <input class="input-field" name="machine_name" placeholder="Ej. Mancuernas Pro" type="text" required/>
             </div>
 
@@ -38,7 +38,7 @@
                     <input class="input-field" name="count_machine" min="1" type="number" value="1"/>
                 </div>
                 <div class="space-y-2">
-                    <label>Estado</label>
+                    <label>State</label>
                     <select class="select-field" name="status">
                         <option value='operational'>operational</option>
                         <option value="not operational">not operational</option>
@@ -48,11 +48,11 @@
 
             <div class="actions">
                 <button class="btn-submit" type="submit">
-                    Guardar Equipo
+                    Save
                 </button>
                 <button class="btn-discard" type="button">
                     <a href="/el_mus_culito/equipment">
-                    Descartar
+                    Rule out
                     </a>
                 </button>
             </div>
